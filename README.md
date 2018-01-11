@@ -68,7 +68,7 @@ Your task is registered and will now be called every 5 minutes.
 
 ## Enabling CRON
 
-For this to work, you must be able to define CRON jobs. For this, you only have to do the following :
+For this to work, you must be able to define CRON jobs. Add the following line to your CRON tab
 
 `* * * * * php /path/to/your/project/bin/console ts:run 1>> /dev/null 2>&1`
 
