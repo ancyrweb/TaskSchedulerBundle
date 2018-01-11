@@ -1,0 +1,29 @@
+{
+  "name": "rewieer/taskschedulerbundle",
+  "description": "Task Scheduler with CRON for Symfony",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Rewieer\\TaskSchedulerBundle\\": ""
+    }
+  },
+  "keywords": ["cron", "task", "scheduler", "symfony", "bundle"],
+  "require": {
+    "symfony/framework-bundle": "~2.3||~3.0",
+    "dragonmantank/cron-expression": "^2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.2",
+    "symfony/phpunit-bridge": "^3.0",
+    "sensio/framework-extra-bundle": "^3.0.2",
+    "symfony/console": "^4.0",
+    "monolog/monolog": "^1.23"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Anthony Cyrille",
+      "email": "rewieer@gmail.com"
+    }
+  ]
+}

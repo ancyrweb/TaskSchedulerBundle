@@ -1,0 +1,6 @@
+/vendor/
+/web/bundles/
+/web/node_modules
+.idea
+yarn-error.log
+web/upload/articles
