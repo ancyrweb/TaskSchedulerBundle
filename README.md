@@ -19,7 +19,7 @@ class Task extends AbstractScheduledTask {
 }
 ```
 
-# Installation
+## Installation
 
 Start by adding the bundle to your composer.json
 `composer require rewieer/taskschedulerbundle`
@@ -29,14 +29,14 @@ Then add the bundle to your AppKernel.php :
 // in AppKernel::registerBundles()
 $bundles = array(
     // ...
-    new Rewieer\TaskSchedulerBundle\RewieerTaskSchedulerBundle,
+    new Rewieer\TaskSchedulerBundle\RewieerTaskSchedulerBundle(),
     // ...
 );
 ```
 
 You are good to go !
 
-# Usage
+## Usage
 Tasks can be anything, like services ! You just have to add the tag `ts.task` and implement 
 `TaskInterface`, or for simplicity extends from `AbstractScheduledTask`.
 
@@ -66,7 +66,7 @@ class Task extends AbstractScheduledTask {
 
 Your task is registered and will now be called every 5 minutes.
 
-# Enabling CRON
+## Enabling CRON
 
 For this to work, you must be able to define CRON jobs. For this, you only have to do the following :
 
