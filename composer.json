@@ -7,6 +7,7 @@
       "Rewieer\\TaskSchedulerBundle\\": ""
     }
   },
+  "version": "0.0.1",
   "keywords": ["cron", "task", "scheduler", "symfony", "bundle"],
   "require": {
     "symfony/framework-bundle": "~2.3|~3.0|~4.0",
