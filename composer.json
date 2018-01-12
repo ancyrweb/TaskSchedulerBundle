@@ -9,7 +9,7 @@
   },
   "keywords": ["cron", "task", "scheduler", "symfony", "bundle"],
   "require": {
-    "symfony/framework-bundle": "~2.3||~3.0",
+    "symfony/framework-bundle": "~2.3|~3.0|~4.0",
     "dragonmantank/cron-expression": "^2.0"
   },
   "require-dev": {

@@ -19,6 +19,7 @@ class EventDispatcherPassTest extends ContainerAwareTest {
 
     $def = new Definition(EventSubscriberMock::class);
     $def->addTag("ts.event_subscriber");
+    $def->setPublic(true);
     $container->setDefinition("mock.event_subscriber", $def);
 
     $pass = new EventDispatcherPass();
