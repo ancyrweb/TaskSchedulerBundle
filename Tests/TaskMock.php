@@ -12,11 +12,14 @@ use Rewieer\TaskSchedulerBundle\Task\TaskInterface;
 
 class TaskMock implements TaskInterface {
   static $runCount = 0;
+  public $localCount = 0;
+
   public function isDue($currentTime): bool {
     return true;
   }
 
   public function run() {
     self::$runCount++;
+    $this->localCount++;
   }
 }

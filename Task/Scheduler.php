@@ -45,14 +45,22 @@ class Scheduler {
     $this->dispatcher->dispatch(SchedulerEvents::ON_START);
     foreach($this->tasks as $task) {
       if ($task->isDue($currentTime)) {
-        $this->dispatcher->dispatch(SchedulerEvents::BEFORE_TASK_RUNS, [$task]);
-        $task->run();
-        $this->dispatcher->dispatch(SchedulerEvents::AFTER_TASK_RUNS, [$task]);
+        $this->runTask($task);
       } else {
         $this->dispatcher->dispatch(SchedulerEvents::ON_SKIP, [$task]);
       }
     }
     $this->dispatcher->dispatch(SchedulerEvents::ON_END);
+  }
+
+  /**
+   * Run the task
+   * @param TaskInterface $task
+   */
+  public function runTask(TaskInterface $task) {
+    $this->dispatcher->dispatch(SchedulerEvents::BEFORE_TASK_RUNS, [$task]);
+    $task->run();
+    $this->dispatcher->dispatch(SchedulerEvents::AFTER_TASK_RUNS, [$task]);
   }
 
   /**

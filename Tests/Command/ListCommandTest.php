@@ -36,6 +36,6 @@ class ListCommandTest extends ContainerAwareTest {
     ]);
 
     $output = $commandTester->getDisplay();
-    $this->assertContains('Rewieer\TaskSchedulerBundle\Tests\TaskMock', $output);
+    $this->assertContains("| 1  | Rewieer\TaskSchedulerBundle\Tests\TaskMock |", $output);
   }
 }

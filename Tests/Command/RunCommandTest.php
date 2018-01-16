@@ -36,4 +36,30 @@ class RunCommandTest extends ContainerAwareTest {
 
     $this->assertEquals(1, TaskMock::$runCount);
   }
+
+  public function testRunCommandWithId() {
+    $container = $this->loadContainer();
+    $scheduler = $container->get("ts.scheduler");
+
+    $t1 = new TaskMock();
+    $t2 = new TaskMock();
+
+    $scheduler->addTask($t1);
+    $scheduler->addTask($t2);
+
+    $application = new Application();
+    $application->add(new RunCommand());
+    $command = $application->find("ts:run");
+    $command->setContainer($container);
+
+    $commandTester = new CommandTester($command);
+    $commandTester->execute([
+      "command" => $command->getName(),
+      "id" => 1,
+    ]);
+
+    $this->assertEquals(1, TaskMock::$runCount);
+    $this->assertEquals(1, $t1->localCount);
+    $this->assertEquals(0, $t2->localCount);
+  }
 }
