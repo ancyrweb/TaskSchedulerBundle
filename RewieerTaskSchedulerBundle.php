@@ -13,8 +13,7 @@ use Rewieer\TaskSchedulerBundle\DependencyInjection\Compiler\TaskPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class RewieerTaskSchedulerBundle extends Bundle
-{
+class RewieerTaskSchedulerBundle extends Bundle {
   public function build(ContainerBuilder $container) {
     $container->addCompilerPass(new TaskPass());
     $container->addCompilerPass(new EventDispatcherPass());

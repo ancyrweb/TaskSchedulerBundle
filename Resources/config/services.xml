@@ -17,5 +17,12 @@
       <tag name="monolog.logger" channel="scheduler" />
       <argument type="service" id="logger" />
     </service>
+
+    <service id="ts.list_command" class="Rewieer\TaskSchedulerBundle\Command\ListCommand" public="true">
+      <tag name="console.command" />
+    </service>
+    <service id="ts.run_command" class="Rewieer\TaskSchedulerBundle\Command\RunCommand" public="true">
+      <tag name="console.command" />
+    </service>
   </services>
 </container>
