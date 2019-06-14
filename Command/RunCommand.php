@@ -6,12 +6,24 @@
 
 namespace Rewieer\TaskSchedulerBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Rewieer\TaskSchedulerBundle\Task\Scheduler;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class RunCommand extends ContainerAwareCommand {
+class RunCommand extends Command {
+    /**
+     * @var Scheduler
+     */
+    private $scheduler;
+
+    public function __construct(Scheduler $scheduler)
+    {
+        parent::__construct();
+        $this->scheduler = $scheduler;
+    }
+
   protected function configure() {
     $this
       ->setName("ts:run")
@@ -24,19 +36,18 @@ class RunCommand extends ContainerAwareCommand {
 
   protected function execute(InputInterface $input, OutputInterface $output) {
     $id = $input->getArgument("id");
-    $scheduler = $this->getContainer()->get("ts.scheduler");
 
     if (!$id) {
-      $scheduler->run();
+      $this->scheduler->run();
     } else {
-      $tasks = $scheduler->getTasks();
+      $tasks = $this->scheduler->getTasks();
       $id = intval($id);
 
       if (array_key_exists($id - 1, $tasks) === false) {
         throw new \Exception("There are no tasks corresponding to this ID");
       }
 
-      $scheduler->runTask($tasks[$id - 1]);
+      $this->scheduler->runTask($tasks[$id - 1]);
     }
   }
 }

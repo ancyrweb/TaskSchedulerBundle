@@ -25,10 +25,9 @@ class ListCommandTest extends ContainerAwareTest {
     $scheduler->addTask(new TaskMock());
 
     $application = new Application();
-    $application->add(new ListCommand());
+    $application->add(new ListCommand($scheduler));
 
     $command = $application->find("ts:list");
-    $command->setContainer($container);
 
     $commandTester = new CommandTester($command);
     $commandTester->execute([
