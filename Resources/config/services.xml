@@ -20,9 +20,11 @@
 
     <service id="ts.list_command" class="Rewieer\TaskSchedulerBundle\Command\ListCommand" public="true">
       <tag name="console.command" />
+      <argument type="service" id="ts.scheduler" />
     </service>
     <service id="ts.run_command" class="Rewieer\TaskSchedulerBundle\Command\RunCommand" public="true">
       <tag name="console.command" />
+      <argument type="service" id="ts.scheduler" />
     </service>
   </services>
 </container>
