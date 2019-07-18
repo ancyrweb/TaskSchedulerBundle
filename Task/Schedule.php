@@ -42,7 +42,7 @@ class Schedule {
    * @return $this
    */
   public function hours(int $hour) {
-    $this->cron->setPart(1, $hour);
+    $this->cron->setPart(1, (string)$hour);
     return $this;
   }
 
@@ -52,7 +52,7 @@ class Schedule {
    * @return $this
    */
   public function minutes(int $minutes) {
-    $this->cron->setPart(0, $minutes);
+    $this->cron->setPart(0, (string)$minutes);
     return $this;
   }
 
