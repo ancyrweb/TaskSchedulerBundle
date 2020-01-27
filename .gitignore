@@ -4,3 +4,5 @@
 .idea
 yarn-error.log
 web/upload/articles
+composer.lock
+.phpunit.result.cache

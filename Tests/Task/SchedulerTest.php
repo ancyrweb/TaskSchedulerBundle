@@ -42,7 +42,7 @@ class ScheduledTask extends AbstractScheduledTask {
 }
 
 class SchedulerTest extends \PHPUnit\Framework\TestCase {
-  public function setUp() {
+  public function setUp() : void {
     Task::$runCount = 0;
     ScheduledTask::$runCount = 0;
     EventSubscriberMock::$stack = [];

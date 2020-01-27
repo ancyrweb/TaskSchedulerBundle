@@ -24,7 +24,7 @@ class Task implements TaskInterface {
   }
 }
 class TaskPassTest extends ContainerAwareTest {
-  protected function setUp() {
+  protected function setUp() : void {
     Task::$runCount = 0;
   }
 
