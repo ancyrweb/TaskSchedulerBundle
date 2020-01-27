@@ -15,7 +15,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class RunCommandTest extends ContainerAwareTest {
-  protected function setUp() {
+  protected function setUp(): void {
     TaskMock::$runCount = 0;
   }
 

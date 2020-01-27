@@ -15,7 +15,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class ListCommandTest extends ContainerAwareTest {
-  protected function setUp() {
+  protected function setUp(): void {
     TaskMock::$runCount = 0;
   }
 
@@ -35,6 +35,6 @@ class ListCommandTest extends ContainerAwareTest {
     ]);
 
     $output = $commandTester->getDisplay();
-    $this->assertContains("| 1  | Rewieer\TaskSchedulerBundle\Tests\TaskMock |", $output);
+    $this->assertStringContainsString("| 1  | Rewieer\TaskSchedulerBundle\Tests\TaskMock |", $output);
   }
 }

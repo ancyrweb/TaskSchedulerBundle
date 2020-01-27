@@ -49,5 +49,7 @@ class RunCommand extends Command {
 
       $this->scheduler->runTask($tasks[$id - 1]);
     }
+
+    return 0;
   }
 }
