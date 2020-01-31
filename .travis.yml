@@ -28,6 +28,14 @@ matrix:
       env: SYMFONY_VERSION=4.2.x
     - php: 7.2
       env: SYMFONY_VERSION=4.3.x
+    - php: 7.2
+      env: SYMFONY_VERSION=4.4.x
+    - php: 7.2
+      env: SYMFONY_VERSION=5.0.x
     - php: 7.3
       env: SYMFONY_VERSION=4.3.x
+    - php: 7.3
+      env: SYMFONY_VERSION=4.4.x
+    - php: 7.3
+      env: SYMFONY_VERSION=5.0.x
   fast_finish: true
