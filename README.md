@@ -12,7 +12,7 @@ For this bundle to work, you must be able to define *CRON* jobs on your server.
 
 Start by adding the bundle to your *composer.json* : `composer require rewieer/taskschedulerbundle`
 
-Then add the bundle to your *AppKernel.php* :
+Symfony Flex will automatically enable that bundle for you. If you are not using Flex yet, add the bundle to your *AppKernel.php* :
 ```php
 // in AppKernel::registerBundles()
 $bundles = array(
@@ -51,14 +51,6 @@ class Task extends AbstractScheduledTask {
 }
 ```
 
-In your *services.xml* :
-```xml
-<service id="my.task" class="Foo\Bar\Task">
-  <tag name="ts.task" />
-</service>
-```
-
 Your task is now scheduled and will be called every 5 minutes.
-
 
 You're good to go! You can now check your logs to see if this is working.
