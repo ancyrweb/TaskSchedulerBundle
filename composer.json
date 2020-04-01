@@ -1,7 +1,7 @@
 {
   "name": "rewieer/taskschedulerbundle",
   "description": "Task Scheduler with CRON for Symfony",
-  "type": "library",
+  "type": "symfony-bundle",
   "autoload": {
     "psr-4": {
       "Rewieer\\TaskSchedulerBundle\\": ""
