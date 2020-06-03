@@ -18,7 +18,6 @@ interface TaskInterface {
 
   /**
    * Execute the task
-   * @return mixed
    */
   public function run();
 }
