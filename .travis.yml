@@ -18,24 +18,24 @@ script:
 
 matrix:
   include:
-    - php: 7.1
-      env: SYMFONY_VERSION=3.4.x
-    - php: 7.1
-      env: SYMFONY_VERSION=4.3.x
     - php: 7.2
       env: SYMFONY_VERSION=3.4.x
-    - php: 7.2
-      env: SYMFONY_VERSION=4.2.x
-    - php: 7.2
-      env: SYMFONY_VERSION=4.3.x
     - php: 7.2
       env: SYMFONY_VERSION=4.4.x
     - php: 7.2
       env: SYMFONY_VERSION=5.0.x
-    - php: 7.3
-      env: SYMFONY_VERSION=4.3.x
+    - php: 7.2
+      env: SYMFONY_VERSION=5.1.x
     - php: 7.3
       env: SYMFONY_VERSION=4.4.x
     - php: 7.3
       env: SYMFONY_VERSION=5.0.x
+    - php: 7.3
+      env: SYMFONY_VERSION=5.1.x
+    - php: 7.4
+      env: SYMFONY_VERSION=4.4.x
+    - php: 7.4
+      env: SYMFONY_VERSION=5.0.x
+    - php: 7.4
+      env: SYMFONY_VERSION=5.1.x
   fast_finish: true
