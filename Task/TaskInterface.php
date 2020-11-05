@@ -17,6 +17,13 @@ interface TaskInterface {
   public function isDue($currentTime) : bool;
 
   /**
+   * Get the next run dates for this job
+   * @param int $counter
+   * @return string[]
+   */
+  public function getNextRunDates($counter) : array;
+
+  /**
    * Execute the task
    */
   public function run();

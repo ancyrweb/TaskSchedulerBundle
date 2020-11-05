@@ -35,6 +35,28 @@ class ListCommandTest extends ContainerAwareTest {
     ]);
 
     $output = $commandTester->getDisplay();
+    $this->assertStringNotContainsString("run dates", $output);
     $this->assertStringContainsString("| 1  | Rewieer\TaskSchedulerBundle\Tests\TaskMock |", $output);
+  }
+
+  public function testListCommandWithOption() {
+    $container = $this->loadContainer();
+    $scheduler = $container->get("ts.scheduler");
+    $scheduler->addTask(new TaskMock());
+
+    $application = new Application();
+    $application->add(new ListCommand($scheduler));
+
+    $command = $application->find("ts:list");
+
+    $commandTester = new CommandTester($command);
+    $commandTester->execute([
+      "command" => $command->getName(),
+      "--show-run-dates" => 42,
+    ]);
+
+    $output = $commandTester->getDisplay();
+    $this->assertStringContainsString("42 run dates", $output);
+    $this->assertStringContainsString("| 1  | Rewieer\TaskSchedulerBundle\Tests\TaskMock | nextRunDate, anotherRunDate", $output);
   }
 }

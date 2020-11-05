@@ -34,5 +34,19 @@ abstract class AbstractScheduledTask implements TaskInterface {
     return $this->schedule;
   }
 
+  public function getNextRunDates($counter): array {
+    $result = [];
+
+    if ($counter < 1) {
+      return $result;
+    }
+
+    for ($i = 0; $i < $counter; $i++) {
+      $result[] = $this->schedule->getCron()->getNextRunDate('now', $i)->format(DATE_ATOM);
+    }
+
+    return $result;
+  }
+
   abstract protected function initialize(Schedule $schedule);
 }

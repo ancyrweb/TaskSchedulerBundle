@@ -19,6 +19,10 @@ class Task implements TaskInterface {
     return true;
   }
 
+  public function getNextRunDates($counter): array {
+    return [];
+  }
+
   public function run() {
     self::$runCount++;
   }
