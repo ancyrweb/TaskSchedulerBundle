@@ -10,9 +10,12 @@ use Rewieer\TaskSchedulerBundle\Task\Scheduler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ListCommand extends Command {
+    private const NUMBER_OF_RUN_DATES = 3;
+
   /**
    * @var Scheduler
    */
@@ -28,19 +31,32 @@ class ListCommand extends Command {
     $this
       ->setName("ts:list")
       ->setDescription("List the existing tasks")
-      ->setHelp("This command display the list of registered tasks.");
+      ->setHelp("This command display the list of registered tasks.")
+      ->addOption("show-run-dates", null, InputOption::VALUE_OPTIONAL, "Show next run dates (default value: " . self::NUMBER_OF_RUN_DATES. ")", false);
   }
 
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $table = new Table($output);
-    $table->setHeaders([
-      "ID",
-      "Class",
-    ]);
+    $numberOfRunDates = $input->getOption('show-run-dates') ?? self::NUMBER_OF_RUN_DATES;
+    $showRunDates = $numberOfRunDates !== false;
 
-    $id = 1;
-    foreach ($this->scheduler->getTasks() as $task) {
-      $table->addRow([$id++, get_class($task)]);
+    $table = new Table($output);
+    $tableHeaders = ["ID", "Class"];
+
+    if ($showRunDates) {
+      $tableHeaders[] = "Next " . $numberOfRunDates . " run dates";
+    }
+
+    $table->setHeaders($tableHeaders);
+
+    foreach ($this->scheduler->getTasks() as $id => $task) {
+      $row = [($id + 1), get_class($task)];
+
+      if ($showRunDates) {
+        $nextRunDates = $task->getNextRunDates($numberOfRunDates);
+        $row[] = implode(', ', $nextRunDates);
+      }
+
+      $table->addRow($row);
     };
 
     $table->render();
