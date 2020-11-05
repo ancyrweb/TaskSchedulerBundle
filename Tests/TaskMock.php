@@ -18,6 +18,10 @@ class TaskMock implements TaskInterface {
     return true;
   }
 
+  public function getNextRunDates($counter): array {
+    return ['nextRunDate', 'anotherRunDate'];
+  }
+
   public function run() {
     self::$runCount++;
     $this->localCount++;
