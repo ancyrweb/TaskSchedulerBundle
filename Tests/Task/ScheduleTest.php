@@ -70,4 +70,13 @@ class ScheduleTest extends \PHPUnit\Framework\TestCase {
       "1 2 * 4 5"
     );
   }
+  public function testSetExpression() {
+    $schedule = new Schedule("* * * * *");
+    $schedule->setExpression("0 * * * *");
+
+    $this->assertEquals(
+      $schedule->getExpression(),
+      "0 * * * *"
+    );
+  }
 }
