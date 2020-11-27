@@ -5,11 +5,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Rewieer\TaskSchedulerBundle\Test;
+namespace Rewieer\TaskSchedulerBundle\Tests\Task;
 
+use PHPUnit\Framework\TestCase;
 use Rewieer\TaskSchedulerBundle\Task\Schedule;
 
-class ScheduleTest extends \PHPUnit\Framework\TestCase {
+class ScheduleTest extends TestCase {
   public function testDefault() {
     // By default the cron should just run everyday at midnight
     $schedule = new Schedule();

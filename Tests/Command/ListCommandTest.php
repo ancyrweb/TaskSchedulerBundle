@@ -9,6 +9,7 @@
 namespace Rewieer\TaskSchedulerBundle\Tests\Command;
 
 use Rewieer\TaskSchedulerBundle\Command\ListCommand;
+use Rewieer\TaskSchedulerBundle\Task\Scheduler;
 use Rewieer\TaskSchedulerBundle\Tests\DependencyInjection\ContainerAwareTest;
 use Rewieer\TaskSchedulerBundle\Tests\TaskMock;
 use Symfony\Component\Console\Application;
@@ -21,6 +22,7 @@ class ListCommandTest extends ContainerAwareTest {
 
   public function testListCommand() {
     $container = $this->loadContainer();
+    /** @var Scheduler $scheduler */
     $scheduler = $container->get("ts.scheduler");
     $scheduler->addTask(new TaskMock());
 
@@ -45,6 +47,7 @@ class ListCommandTest extends ContainerAwareTest {
     $scheduler->addTask(new TaskMock());
 
     $application = new Application();
+      /** @var Scheduler $scheduler */
     $application->add(new ListCommand($scheduler));
 
     $command = $application->find("ts:list");
