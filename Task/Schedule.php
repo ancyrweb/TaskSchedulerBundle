@@ -1,4 +1,5 @@
 <?php
+
 /*
  * (c) Antonny Cyrille <rewieer@gmail.com>
  *
@@ -7,8 +8,10 @@
  */
 
 namespace Rewieer\TaskSchedulerBundle\Task;
+
 use Cron\CronExpression;
 use Cron\FieldFactory;
+use DateTimeInterface;
 
 /**
  * Class Schedule
@@ -24,15 +27,18 @@ class Schedule {
    * Schedule constructor.
    * @param string $expr the default cron
    */
-  public function __construct($expr = "* * * * *") {
+  public function __construct($expr = "* * * * *")
+  {
     $this->cron = new CronExpression($expr, new FieldFactory());
   }
 
   /**
    * Sets the cron to work every day
+   * @return $this
    */
-  public function daily() {
-    $this->cron->setPart(2, "*");
+  public function daily()
+  {
+    $this->cron->setPart(CronExpression::DAY, "*");
     return $this;
   }
 
@@ -42,7 +48,7 @@ class Schedule {
    * @return $this
    */
   public function hours(int $hour) {
-    $this->cron->setPart(1, (string)$hour);
+    $this->cron->setPart(CronExpression::HOUR, (string)$hour);
     return $this;
   }
 
@@ -52,26 +58,26 @@ class Schedule {
    * @return $this
    */
   public function minutes(int $minutes) {
-    $this->cron->setPart(0, (string)$minutes);
+    $this->cron->setPart(CronExpression::MINUTE, (string) $minutes);
     return $this;
   }
 
   /**
    * Set the cron to work at every x minutes
    * @param int $minutes
-   * @return Schedule
+   * @return $this
    */
-  public function everyMinutes($minutes = 1) {
-    return $this->everyX($minutes, 0);
+  public function everyMinutes(int $minutes = 1) {
+    return $this->everyX($minutes, CronExpression::MINUTE);
   }
 
   /**
    * Set the cron to work at every x hours
    * @param int $hours
-   * @return Schedule
+   * @return $this
    */
-  public function everyHours($hours = 1) {
-    return $this->everyX($hours, 1);
+  public function everyHours(int $hours = 1) {
+    return $this->everyX($hours, CronExpression::HOUR);
   }
 
   /**
@@ -82,11 +88,11 @@ class Schedule {
    * @param int $part
    * @return $this
    */
-  public function everyX($time = 1, int $part) {
-    if (!$time || $time === 1) {
+  public function everyX(int $time = 1, int $part = CronExpression::MINUTE) {
+    if ($time === 0 || $time === 1) {
       $expr = "*";
     } else {
-      $expr = "*/" .intval($time);
+      $expr = "*/" . (string) $time;
     }
 
     $this->cron->setPart($part, $expr);
@@ -107,17 +113,31 @@ class Schedule {
     return $this->cron->getExpression();
   }
 
-  /**
-   * @param string $value
-   */
+    /**
+     * Allows setting entire expression in string format like "0 * 2,7,12 * 7"
+     * Exposes CronExpressions method directly
+     * @param string $value
+     * @return $this
+     */
   public function setExpression(string $value) {
     $this->cron->setExpression($value);
     return $this;
   }
 
+    /**
+     * @param int $position
+     * @param string $value
+     * @return $this
+     */
+  public function setPart(int $position, string $value)
+  {
+      $this->cron->setPart($position, $value);
+      return $this;
+  }
+
   /**
    * Return true if the schedule is due to now
-   * @param $currentTime
+   * @param DateTimeInterface|string $currentTime
    * @return bool
    */
   public function isDue($currentTime = 'now') {
