@@ -12,7 +12,6 @@ use Psr\Log\LoggerInterface;
 use Rewieer\TaskSchedulerBundle\Event\EventSubscriberInterface;
 use Rewieer\TaskSchedulerBundle\Task\SchedulerEvents;
 use Rewieer\TaskSchedulerBundle\Task\TaskInterface;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Class SchedulerLogger
