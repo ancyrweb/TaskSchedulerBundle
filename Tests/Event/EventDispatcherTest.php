@@ -5,24 +5,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Rewieer\TaskSchedulerBundle\Test\Event;
+namespace Rewieer\TaskSchedulerBundle\Tests\Event;
 
+use PHPUnit\Framework\TestCase;
 use Rewieer\TaskSchedulerBundle\Event\EventDispatcher;
-use Rewieer\TaskSchedulerBundle\Event\EventSubscriberInterface;
 
-class DummySubscriber implements EventSubscriberInterface {
-  public $args;
-  public function callFoo() {
-    $this->args = func_get_args();
-  }
-
-  public static function getEvents(): array {
-    return [
-      "foo" => "callFoo"
-    ];
-  }
-}
-class EventDispatcherTest extends \PHPUnit\Framework\TestCase {
+class EventDispatcherTest extends TestCase {
   public function testEventDispatcher() {
     $dispatcher = new EventDispatcher();
     $subscriber = new DummySubscriber();

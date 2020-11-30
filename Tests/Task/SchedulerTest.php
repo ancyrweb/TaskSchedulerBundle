@@ -5,47 +5,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Rewieer\TaskSchedulerBundle\Test;
+namespace Rewieer\TaskSchedulerBundle\Tests\Task;
 
-use Rewieer\TaskSchedulerBundle\Task\AbstractScheduledTask;
+use PHPUnit\Framework\TestCase;
 use Rewieer\TaskSchedulerBundle\Event\EventDispatcher;
-use Rewieer\TaskSchedulerBundle\Task\Schedule;
 use Rewieer\TaskSchedulerBundle\Task\Scheduler;
-use Rewieer\TaskSchedulerBundle\Task\TaskInterface;
 use Rewieer\TaskSchedulerBundle\Tests\EventSubscriberMock;
 
-class Task implements TaskInterface {
-  public static $runCount = 0;
-  public $enable = true;
-
-  public function isDue($currentTime) : bool {
-    return $this->enable;
-  }
-
-  public function getNextRunDates($counter): array {
-    return [];
-  }
-
-  public function run() {
-    static::$runCount++;
-  }
-}
-
-class ScheduledTask extends AbstractScheduledTask {
-  public static $runCount = 0;
-  protected function initialize(Schedule $schedule) {
-   $schedule
-     ->daily()
-     ->hours(3)
-     ->minutes(50);
-   }
-
-  public function run() {
-    static::$runCount++;
-  }
-}
-
-class SchedulerTest extends \PHPUnit\Framework\TestCase {
+class SchedulerTest extends TestCase {
   public function setUp(): void {
     Task::$runCount = 0;
     ScheduledTask::$runCount = 0;
