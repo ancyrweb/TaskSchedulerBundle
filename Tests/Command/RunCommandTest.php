@@ -9,18 +9,21 @@
 namespace Rewieer\TaskSchedulerBundle\Tests\Command;
 
 use Rewieer\TaskSchedulerBundle\Command\RunCommand;
+use Rewieer\TaskSchedulerBundle\Task\Scheduler;
 use Rewieer\TaskSchedulerBundle\Tests\DependencyInjection\ContainerAwareTest;
 use Rewieer\TaskSchedulerBundle\Tests\TaskMock;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class RunCommandTest extends ContainerAwareTest {
+class RunCommandTest extends ContainerAwareTest
+{
   protected function setUp(): void {
     TaskMock::$runCount = 0;
   }
 
   public function testRunCommand() {
     $container = $this->loadContainer();
+    /** @var Scheduler $scheduler */
     $scheduler = $container->get("ts.scheduler");
     $scheduler->addTask(new TaskMock());
 
@@ -38,6 +41,7 @@ class RunCommandTest extends ContainerAwareTest {
 
   public function testRunCommandWithId() {
     $container = $this->loadContainer();
+    /** @var Scheduler $scheduler */
     $scheduler = $container->get("ts.scheduler");
 
     $t1 = new TaskMock();
