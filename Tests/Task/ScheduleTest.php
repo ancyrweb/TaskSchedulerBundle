@@ -7,6 +7,8 @@
  */
 namespace Rewieer\TaskSchedulerBundle\Tests\Task;
 
+use Cron\CronExpression;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Rewieer\TaskSchedulerBundle\Task\Schedule;
 
@@ -80,4 +82,52 @@ class ScheduleTest extends TestCase {
       "0 * * * *"
     );
   }
+    public function testSetExpressionAllowedValues()
+    {
+        $schedule = new Schedule("* * 2,7,12 * *");
+        $schedule->setExpression("0 8-12 2,7,12 oct sat,sun");
+
+        $this->assertEquals(
+            "0 8-12 2,7,12 oct sat,sun",
+            $schedule->getExpression()
+
+        );
+    }
+
+    public function testSetPartExpression()
+    {
+        $schedule = new Schedule();
+        $schedule->setPart(CronExpression::MINUTE, '0');
+        $schedule->setPart(CronExpression::HOUR, '8-12');
+        $schedule->setPart(CronExpression::DAY, '2,7,12');
+        $schedule->setPart(CronExpression::MONTH, 'oct');
+        $schedule->setPart(CronExpression::WEEKDAY, 'sat,sun');
+
+        $this->assertEquals(
+            "0 8-12 2,7,12 oct sat,sun",
+            $schedule->getExpression()
+        );
+    }
+
+    public function testInvalidExpressionFullMonth()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $schedule = new Schedule();
+        $schedule->setPart(CronExpression::MONTH, 'october');
+    }
+
+    public function testInvalidExpressionUnknownValue()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $schedule = new Schedule();
+        $schedule->setPart(CronExpression::MONTH, 'movember');
+    }
+
+    public function testInvalidExpressionNegative()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $schedule = new Schedule();
+        $schedule->setPart(CronExpression::MINUTE, '-5');
+    }
+
 }
