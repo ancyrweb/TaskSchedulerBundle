@@ -1,0 +1,57 @@
+name: "Tests"
+
+on:
+    pull_request:
+    push:
+
+env:
+    fail-fast: true
+
+jobs:
+    phpunit:
+        name: "PHPUnit"
+        runs-on: "ubuntu-20.04"
+
+        strategy:
+            matrix:
+                php-version:
+                    - "7.2"
+                    - "7.3"
+                    - "7.4"
+                symfony-version:
+                    - "3.4.x"
+                    - "4.4.x"
+                    - "5.0.x"
+                    - "5.1.x"
+
+        steps:
+            - name: "Checkout"
+              uses: "actions/checkout@v2"
+              with:
+                  fetch-depth: 2
+
+            - name: "Install PHP"
+              uses: "shivammathur/setup-php@v2"
+              with:
+                  php-version: "${{ matrix.php-version }}"
+
+            - name: Get composer cache directory
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache composer dependencies
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  # Use composer.json for key, if composer.lock is not committed.
+                  # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: ${{ runner.os }}-composer-
+
+            - name: Install Composer dependencies
+              run: |
+                  composer require --dev --no-update symfony/framework-bundle:${{ matrix.symfony-version }}
+                  composer install --no-progress --prefer-dist --optimize-autoloader
+
+            - name: Run Tests
+              run: php vendor/bin/phpunit --coverage-text
