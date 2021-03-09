@@ -49,7 +49,7 @@ class Task extends AbstractScheduledTask {
   }
 
   public function run() {
-    // Do suff
+    // Do stuff
   }
 }
 ```
@@ -80,7 +80,7 @@ class Task extends AbstractScheduledTask {
   }
 
   public function run() {
-    // Do suff
+    // Do stuff
   }
 }
 ```
