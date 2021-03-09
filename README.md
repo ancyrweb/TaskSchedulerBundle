@@ -58,7 +58,8 @@ Your task is now scheduled and will be called every 5 minutes.
 
 ### Every X Hours or Daily
 
-if you are scheduling your task on an hourly or daily basis, you'll need to set `minutes()` in addition to `hours()`, `everyHours()`, or `daily()`.
+if you are scheduling your task on an hourly or daily basis, you'll need to set `minutes()` in addition to `hours()`, `everyHours()`, or `daily()`.  **If you omit `minutes()`, the task will run every minute on the scheduled hour(s).**
+
 In `Foo\Bar\Task` to schedule a task **every 5 hours**:
 
 ```php
