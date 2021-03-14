@@ -34,7 +34,10 @@ First, add the following line to your *CRON* tabs : `* * * * * php /path/to/your
 
 You then need to create a task. Tasks can be any service! You just have to give it the `ts.task` tag and implement `TaskInterface`, or for simplicity extend from `AbstractScheduledTask`.
 
-In `Foo\Bar\Task`
+### Every X Minutes
+
+In `Foo\Bar\Task` to schedule a task **every 5 minutes**:
+
 ```php
 use Rewieer\TaskSchedulerBundle\Task\AbstractScheduledTask;
 use Rewieer\TaskSchedulerBundle\Task\Schedule;
@@ -46,11 +49,40 @@ class Task extends AbstractScheduledTask {
   }
 
   public function run() {
-    // Do suff
+    // Do stuff
   }
 }
 ```
 
-Your task is now scheduled and will be called every 5 minutes.
+Your task is now scheduled and will be called every 5 minutes.  
+
+### Every X Hours or Daily
+
+if you are scheduling your task on an hourly or daily basis, you'll need to set `minutes()` in addition to `hours()`, `everyHours()`, or `daily()`.  **If you omit `minutes()`, the task will run every minute on the scheduled hour(s).**
+
+In `Foo\Bar\Task` to schedule a task **every 5 hours**:
+
+```php
+use Rewieer\TaskSchedulerBundle\Task\AbstractScheduledTask;
+use Rewieer\TaskSchedulerBundle\Task\Schedule;
+
+class Task extends AbstractScheduledTask {
+  protected function initialize(Schedule $schedule) {
+    $schedule
+      ->minutes(0)
+      ->everyHours(5); // Perform the task every 5 hours on minute 0
+      
+    // Or if you want to perform your task at midnight every day
+    // $schedule->minutes(0)->hours(0)->daily();
+    
+    // Or schedule your task to run once at 9AM daily (this is effectively the same as daily() above)
+    // $schedule->minutes(0)->hours(9);
+  }
+
+  public function run() {
+    // Do stuff
+  }
+}
+```
 
 You're good to go! You can now check your logs to see if this is working.
