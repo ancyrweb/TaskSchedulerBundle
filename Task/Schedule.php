@@ -27,38 +27,77 @@ class Schedule {
    * Schedule constructor.
    * @param string $expr the default cron
    */
-  public function __construct($expr = "* * * * *")
+  public function __construct(string $expr = "* * * * *")
   {
     $this->cron = new CronExpression($expr, new FieldFactory());
+  }
+
+  /**
+   * Sets the cron to work at these months
+   * @param string|int $months
+   * @return $this
+   */
+  public function months($months): self
+  {
+    $this->cron->setPart(CronExpression::MONTH, $months);
+    return $this;
+  }
+
+  /**
+   * Sets the cron to work at these days of the week
+   * ATTENTION: resets daysOfMonth
+   * @param string|int $days
+   * @return $this
+   */
+  public function daysOfWeek($days): self
+  {
+    $this->cron->setPart(CronExpression::DAY, '*');
+    $this->cron->setPart(CronExpression::WEEKDAY, $days);
+    return $this;
+  }
+
+  /**
+   * Sets the cron to work at these days of the month
+   * ATTENTION: resets daysOfWeek
+   * @param string|int $days
+   * @return $this
+   */
+  public function daysOfMonth($days): self
+  {
+    $this->cron->setPart(CronExpression::DAY, $days);
+    $this->cron->setPart(CronExpression::WEEKDAY, '*');
+    return $this;
   }
 
   /**
    * Sets the cron to work every day
    * @return $this
    */
-  public function daily()
+  public function daily(): self
   {
     $this->cron->setPart(CronExpression::DAY, "*");
     return $this;
   }
 
   /**
-   * Set the cron to work at this hour
-   * @param int $hour
+   * Set the cron to work at these hours
+   * @param string|int $hours
    * @return $this
    */
-  public function hours(int $hour) {
-    $this->cron->setPart(CronExpression::HOUR, (string)$hour);
+  public function hours($hours): self
+  {
+    $this->cron->setPart(CronExpression::HOUR, (string)$hours);
     return $this;
   }
 
   /**
-   * Set the cron to work at this minutes
-   * @param int $minutes
+   * Set the cron to work at these minutes
+   * @param string|int $minutes
    * @return $this
    */
-  public function minutes(int $minutes) {
-    $this->cron->setPart(CronExpression::MINUTE, (string) $minutes);
+  public function minutes($minutes): self
+  {
+    $this->cron->setPart(CronExpression::MINUTE, (string)$minutes);
     return $this;
   }
 
@@ -67,7 +106,8 @@ class Schedule {
    * @param int $minutes
    * @return $this
    */
-  public function everyMinutes(int $minutes = 1) {
+  public function everyMinutes(int $minutes = 1): self
+  {
     return $this->everyX($minutes, CronExpression::MINUTE);
   }
 
@@ -76,7 +116,8 @@ class Schedule {
    * @param int $hours
    * @return $this
    */
-  public function everyHours(int $hours = 1) {
+  public function everyHours(int $hours = 1): self
+  {
     return $this->everyX($hours, CronExpression::HOUR);
   }
 
@@ -88,7 +129,8 @@ class Schedule {
    * @param int $part
    * @return $this
    */
-  public function everyX(int $time = 1, int $part = CronExpression::MINUTE) {
+  public function everyX(int $time = 1, int $part = CronExpression::MINUTE): self
+  {
     if ($time === 0 || $time === 1) {
       $expr = "*";
     } else {
@@ -102,14 +144,16 @@ class Schedule {
   /**
    * @return CronExpression
    */
-  public function getCron() {
+  public function getCron(): CronExpression
+  {
     return $this->cron;
   }
 
   /**
    * @return string
    */
-  public function getExpression() {
+  public function getExpression(): string
+  {
     return $this->cron->getExpression();
   }
 
@@ -119,7 +163,8 @@ class Schedule {
      * @param string $value
      * @return $this
      */
-  public function setExpression(string $value) {
+  public function setExpression(string $value): self
+  {
     $this->cron->setExpression($value);
     return $this;
   }
@@ -129,10 +174,10 @@ class Schedule {
      * @param string $value
      * @return $this
      */
-  public function setPart(int $position, string $value)
+  public function setPart(int $position, string $value): self
   {
-      $this->cron->setPart($position, $value);
-      return $this;
+    $this->cron->setPart($position, $value);
+    return $this;
   }
 
   /**
@@ -140,7 +185,8 @@ class Schedule {
    * @param DateTimeInterface|string $currentTime
    * @return bool
    */
-  public function isDue($currentTime = 'now') {
+  public function isDue($currentTime = 'now'): bool
+  {
     return $this->cron->isDue($currentTime);
   }
 }
