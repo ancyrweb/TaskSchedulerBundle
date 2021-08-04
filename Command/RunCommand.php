@@ -41,7 +41,7 @@ class RunCommand extends Command {
       $this->scheduler->run();
     } else {
       $tasks = $this->scheduler->getTasks();
-      $id = intval($id);
+      $id = (int)$id;
 
       if (array_key_exists($id - 1, $tasks) === false) {
         throw new \Exception("There are no tasks corresponding to this ID");

@@ -57,7 +57,7 @@ class ListCommand extends Command {
       }
 
       $table->addRow($row);
-    };
+    }
 
     $table->render();
 

@@ -36,10 +36,10 @@ class EventDispatcher {
    */
   public function dispatch(string $event, $args = []) {
     foreach($this->subscribers as $subscriber) {
-      $events = $subscriber->getEvents();
+      $events = $subscriber::getEvents();
       $keys = array_keys($events);
 
-      if (in_array($event, $keys)) {
+      if (in_array($event, $keys, true)) {
         call_user_func_array([$subscriber, $events[$event]], $args);
       }
     }
