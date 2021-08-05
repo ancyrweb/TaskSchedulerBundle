@@ -18,13 +18,15 @@ use Symfony\Component\DependencyInjection\Reference;
  *
  * Adds services tagged with "ts.task" to the scheduler
  */
-class TaskPass implements CompilerPassInterface {
-  public function process(ContainerBuilder $container) {
-    $definition = $container->findDefinition('ts.scheduler');
-    $tasks = $container->findTaggedServiceIds('ts.task');
+class TaskPass implements CompilerPassInterface
+{
+    public function process(ContainerBuilder $container): void
+    {
+        $definition = $container->findDefinition('ts.scheduler');
+        $tasks = $container->findTaggedServiceIds('ts.task');
 
-    foreach($tasks as $id => $tags) {
-      $definition->addMethodCall("addTask", [new Reference($id)]);
+        foreach ($tasks as $id => $tags) {
+            $definition->addMethodCall("addTask", [new Reference($id)]);
+        }
     }
-  }
 }

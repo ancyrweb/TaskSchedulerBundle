@@ -1,17 +1,16 @@
 <?php
 
-namespace Rewieer\TaskSchedulerBundle\Tests\Task;
+namespace Rewieer\TaskSchedulerBundle\Tests\DependencyInjection\Compiler;
 
 use Rewieer\TaskSchedulerBundle\Task\TaskInterface;
 
 class Task implements TaskInterface
 {
     public static $runCount = 0;
-    public $enable = true;
 
     public function isDue($currentTime): bool
     {
-        return $this->enable;
+        return true;
     }
 
     public function getNextRunDates($counter): array
@@ -21,6 +20,6 @@ class Task implements TaskInterface
 
     public function run(): void
     {
-        static::$runCount++;
+        self::$runCount++;
     }
 }

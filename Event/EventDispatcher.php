@@ -8,40 +8,44 @@
 
 namespace Rewieer\TaskSchedulerBundle\Event;
 
-class EventDispatcher {
-  /**
-   * @var EventSubscriberInterface[]
-   */
-  private $subscribers = [];
+class EventDispatcher
+{
+    /**
+     * @var EventSubscriberInterface[]
+     */
+    private $subscribers = [];
 
-  /**
-   * Adds a subscriber
-   * @param EventSubscriberInterface $eventSubscriber
-   */
-  public function addSubscriber(EventSubscriberInterface $eventSubscriber) {
-    $this->subscribers[] = $eventSubscriber;
-  }
-
-  /**
-   * @return EventSubscriberInterface[]
-   */
-  public function getSubscribers() {
-    return $this->subscribers;
-  }
-
-  /**
-   * Dispatches the event
-   * @param string $event
-   * @param array $args
-   */
-  public function dispatch(string $event, $args = []) {
-    foreach($this->subscribers as $subscriber) {
-      $events = $subscriber::getEvents();
-      $keys = array_keys($events);
-
-      if (in_array($event, $keys, true)) {
-        call_user_func_array([$subscriber, $events[$event]], $args);
-      }
+    /**
+     * Adds a subscriber
+     * @param EventSubscriberInterface $eventSubscriber
+     */
+    public function addSubscriber(EventSubscriberInterface $eventSubscriber): void
+    {
+        $this->subscribers[] = $eventSubscriber;
     }
-  }
+
+    /**
+     * @return EventSubscriberInterface[]
+     */
+    public function getSubscribers(): array
+    {
+        return $this->subscribers;
+    }
+
+    /**
+     * Dispatches the event
+     * @param string $event
+     * @param array $args
+     */
+    public function dispatch(string $event, array $args = []): void
+    {
+        foreach ($this->subscribers as $subscriber) {
+            $events = $subscriber::getEvents();
+            $keys = array_keys($events);
+
+            if (in_array($event, $keys, true)) {
+                call_user_func_array([$subscriber, $events[$event]], $args);
+            }
+        }
+    }
 }

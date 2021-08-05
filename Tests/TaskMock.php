@@ -10,20 +10,24 @@ namespace Rewieer\TaskSchedulerBundle\Tests;
 
 use Rewieer\TaskSchedulerBundle\Task\TaskInterface;
 
-class TaskMock implements TaskInterface {
-  static $runCount = 0;
-  public $localCount = 0;
+class TaskMock implements TaskInterface
+{
+    static $runCount = 0;
+    public $localCount = 0;
 
-  public function isDue($currentTime): bool {
-    return true;
-  }
+    public function isDue($currentTime): bool
+    {
+        return true;
+    }
 
-  public function getNextRunDates($counter): array {
-    return ['nextRunDate', 'anotherRunDate'];
-  }
+    public function getNextRunDates($counter): array
+    {
+        return ['nextRunDate', 'anotherRunDate'];
+    }
 
-  public function run() {
-    self::$runCount++;
-    $this->localCount++;
-  }
+    public function run(): void
+    {
+        self::$runCount++;
+        $this->localCount++;
+    }
 }

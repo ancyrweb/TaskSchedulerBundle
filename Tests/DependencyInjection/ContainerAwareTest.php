@@ -11,15 +11,16 @@ namespace Rewieer\TaskSchedulerBundle\Tests\DependencyInjection;
 use Monolog\Logger;
 use Rewieer\TaskSchedulerBundle\DependencyInjection\RewieerTaskSchedulerExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Routing\Router;
 
-abstract class ContainerAwareTest extends \PHPUnit\Framework\TestCase {
-  public function loadContainer($config = []) {
-    $container = new ContainerBuilder();
-    $container->set("logger", new Logger(""));
-    $extension = new RewieerTaskSchedulerExtension();
-    $extension->load($config, $container);
+abstract class ContainerAwareTest extends \PHPUnit\Framework\TestCase
+{
+    public function loadContainer($config = []): ContainerBuilder
+    {
+        $container = new ContainerBuilder();
+        $container->set("logger", new Logger(""));
+        $extension = new RewieerTaskSchedulerExtension();
+        $extension->load($config, $container);
 
-    return $container;
-  }
+        return $container;
+    }
 }

@@ -3,28 +3,30 @@
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-  <services>
-    <!-- core services -->
-    <service id="ts.event_dispatcher" class="Rewieer\TaskSchedulerBundle\Event\EventDispatcher" public="true">
-    </service>
-    <service id="ts.scheduler" class="Rewieer\TaskSchedulerBundle\Task\Scheduler" public="true">
-      <argument type="service" id="ts.event_dispatcher" />
-    </service>
+    <services>
+        <!-- core services -->
+        <service id="ts.event_dispatcher" class="Rewieer\TaskSchedulerBundle\Event\EventDispatcher" public="true">
+        </service>
 
-    <!-- addons -->
-    <service id="ts.scheduler_logger" class="Rewieer\TaskSchedulerBundle\Services\SchedulerLogger" public="true">
-      <tag name="ts.event_subscriber"/>
-      <tag name="monolog.logger" channel="scheduler" />
-      <argument type="service" id="logger" />
-    </service>
+        <service id="ts.scheduler" class="Rewieer\TaskSchedulerBundle\Task\Scheduler" public="true">
+            <argument type="service" id="ts.event_dispatcher"/>
+        </service>
 
-    <service id="ts.list_command" class="Rewieer\TaskSchedulerBundle\Command\ListCommand" public="true">
-      <tag name="console.command" />
-      <argument type="service" id="ts.scheduler" />
-    </service>
-    <service id="ts.run_command" class="Rewieer\TaskSchedulerBundle\Command\RunCommand" public="true">
-      <tag name="console.command" />
-      <argument type="service" id="ts.scheduler" />
-    </service>
-  </services>
+        <!-- addons -->
+        <service id="ts.scheduler_logger" class="Rewieer\TaskSchedulerBundle\Services\SchedulerLogger" public="true">
+            <tag name="ts.event_subscriber"/>
+            <tag name="monolog.logger" channel="scheduler"/>
+            <argument type="service" id="logger"/>
+        </service>
+
+        <service id="ts.list_command" class="Rewieer\TaskSchedulerBundle\Command\ListCommand" public="true">
+            <tag name="console.command"/>
+            <argument type="service" id="ts.scheduler"/>
+        </service>
+
+        <service id="ts.run_command" class="Rewieer\TaskSchedulerBundle\Command\RunCommand" public="true">
+            <tag name="console.command"/>
+            <argument type="service" id="ts.scheduler"/>
+        </service>
+    </services>
 </container>
