@@ -1,0 +1,26 @@
+<ruleset>
+  <file>.</file>
+
+  <rule ref="PSR2" />
+
+  <!-- Use short array syntax ("[]" instead of "array()") -->
+  <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+
+  <!-- Ensure trailing comma in array definitions with multiple lines -->
+  <rule ref="Squiz.Arrays.ArrayDeclaration.NoComma"/>
+
+  <!-- Some useful generic PHP stuff -->
+  <rule ref="Generic.PHP.Syntax" />
+  <rule ref="Generic.PHP.ForbiddenFunctions">
+      <properties>
+          <property name="forbiddenFunctions" type="array">
+              <element key="print" value="echo" />
+              <element key="print_r" value="null" />
+              <element key="var_dump" value="null" />
+              <element key="die" value="exit" /><!-- “Join us or die!” -->
+              <element key="dump" value="null" /><!-- Can be used by Symfony & Laravel -->
+              <element key="dd" value="null" /><!-- Can be used by Symfony >=4.1 & Laravel -->
+          </property>
+      </properties>
+  </rule>
+</ruleset>

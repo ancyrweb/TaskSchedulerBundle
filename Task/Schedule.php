@@ -134,8 +134,7 @@ class Schedule
     {
         if ($time === 0 || $time === 1) {
             $expr = "*";
-        }
-        else {
+        } else {
             $expr = "*/" . (string)$time;
         }
 

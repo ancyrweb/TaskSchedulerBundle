@@ -16,7 +16,7 @@ class DummySubscriber implements EventSubscriberInterface
     public static function getEvents(): array
     {
         return [
-            "foo" => "callFoo"
+            "foo" => "callFoo",
         ];
     }
 }
