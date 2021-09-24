@@ -12,7 +12,7 @@ use Rewieer\TaskSchedulerBundle\Task\TaskInterface;
 
 class TaskMock implements TaskInterface
 {
-    static $runCount = 0;
+    public static $runCount = 0;
     public $localCount = 0;
 
     public function isDue($currentTime): bool

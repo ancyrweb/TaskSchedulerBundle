@@ -52,8 +52,7 @@ class Scheduler
         foreach ($this->tasks as $task) {
             if ($task->isDue($currentTime)) {
                 $this->runTask($task);
-            }
-            else {
+            } else {
                 $this->dispatcher->dispatch(SchedulerEvents::ON_SKIP, [$task]);
             }
         }
