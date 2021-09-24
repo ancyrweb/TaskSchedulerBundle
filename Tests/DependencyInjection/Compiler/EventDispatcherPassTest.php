@@ -13,23 +13,25 @@ use Rewieer\TaskSchedulerBundle\Tests\DependencyInjection\ContainerAwareTest;
 use Rewieer\TaskSchedulerBundle\Tests\EventSubscriberMock;
 use Symfony\Component\DependencyInjection\Definition;
 
-class EventDispatcherPassTest extends ContainerAwareTest {
-  public function testLoadingPass() {
-    $container = $this->loadContainer();
+class EventDispatcherPassTest extends ContainerAwareTest
+{
+    public function testLoadingPass(): void
+    {
+        $container = $this->loadContainer();
 
-    $def = new Definition(EventSubscriberMock::class);
-    $def->addTag("ts.event_subscriber");
-    $def->setPublic(true);
-    $container->setDefinition("mock.event_subscriber", $def);
+        $def = new Definition(EventSubscriberMock::class);
+        $def->addTag("ts.event_subscriber");
+        $def->setPublic(true);
+        $container->setDefinition("mock.event_subscriber", $def);
 
-    $pass = new EventDispatcherPass();
-    $pass->process($container);
-    $container->compile();
+        $pass = new EventDispatcherPass();
+        $pass->process($container);
+        $container->compile();
 
-    $dispatcher = $container->get("ts.event_dispatcher");
-    $this->assertEquals([
-      $container->get("ts.scheduler_logger"),
-      $container->get("mock.event_subscriber")
-    ], $dispatcher->getSubscribers());
-  }
+        $dispatcher = $container->get("ts.event_dispatcher");
+        $this->assertEquals([
+            $container->get("ts.scheduler_logger"),
+            $container->get("mock.event_subscriber")
+        ], $dispatcher->getSubscribers());
+    }
 }

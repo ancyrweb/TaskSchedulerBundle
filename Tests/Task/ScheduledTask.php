@@ -9,7 +9,7 @@ class ScheduledTask extends AbstractScheduledTask
 {
     public static $runCount = 0;
 
-    protected function initialize(Schedule $schedule)
+    protected function initialize(Schedule $schedule): void
     {
         $schedule
             ->daily()
@@ -17,7 +17,7 @@ class ScheduledTask extends AbstractScheduledTask
             ->minutes(50);
     }
 
-    public function run()
+    public function run(): void
     {
         static::$runCount++;
     }

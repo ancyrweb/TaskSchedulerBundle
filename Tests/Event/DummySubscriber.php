@@ -8,7 +8,7 @@ class DummySubscriber implements EventSubscriberInterface
 {
     public $args;
 
-    public function callFoo()
+    public function callFoo(): void
     {
         $this->args = func_get_args();
     }

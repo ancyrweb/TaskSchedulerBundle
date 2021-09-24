@@ -16,16 +16,17 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/configuration.html}
  */
-class Configuration implements ConfigurationInterface {
-  public function getConfigTreeBuilder()
-  {
-    $treeBuilder = new TreeBuilder('rewieer_task_scheduler');
+class Configuration implements ConfigurationInterface
+{
+    public function getConfigTreeBuilder(): TreeBuilder
+    {
+        $treeBuilder = new TreeBuilder('rewieer_task_scheduler');
 
-    if (false === \method_exists($treeBuilder, 'getRootNode')) {
-      // BC layer for symfony/config 4.1 and older
-      $treeBuilder->root('rewieer_task_scheduler');
+        if (false === \method_exists($treeBuilder, 'getRootNode')) {
+            // BC layer for symfony/config 4.1 and older
+            $treeBuilder->root('rewieer_task_scheduler');
+        }
+
+        return $treeBuilder;
     }
-
-    return $treeBuilder;
-  }
 }

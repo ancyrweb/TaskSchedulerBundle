@@ -8,23 +8,26 @@
 
 namespace Rewieer\TaskSchedulerBundle\Task;
 
-interface TaskInterface {
-  /**
-   * Return true if the task is due to now
-   * @param \Datetime|string $currentTime
-   * @return bool
-   */
-  public function isDue($currentTime) : bool;
+use DateTimeInterface;
 
-  /**
-   * Get the next run dates for this job
-   * @param int $counter
-   * @return string[]
-   */
-  public function getNextRunDates($counter) : array;
+interface TaskInterface
+{
+    /**
+     * Return true if the task is due to now
+     * @param DateTimeInterface|string $currentTime
+     * @return bool
+     */
+    public function isDue($currentTime): bool;
 
-  /**
-   * Execute the task
-   */
-  public function run();
+    /**
+     * Get the next run dates for this job
+     * @param int $counter
+     * @return string[]
+     */
+    public function getNextRunDates(int $counter): array;
+
+    /**
+     * Execute the task
+     */
+    public function run(): void;
 }

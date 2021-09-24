@@ -17,51 +17,55 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class RunCommandTest extends ContainerAwareTest
 {
-  protected function setUp(): void {
-    TaskMock::$runCount = 0;
-  }
+    protected function setUp(): void
+    {
+        TaskMock::$runCount = 0;
+    }
 
-  public function testRunCommand() {
-    $container = $this->loadContainer();
-    /** @var Scheduler $scheduler */
-    $scheduler = $container->get("ts.scheduler");
-    $scheduler->addTask(new TaskMock());
+    public function testRunCommand(): void
+    {
+        $container = $this->loadContainer();
+        /** @var Scheduler $scheduler */
+        $scheduler = $container->get("ts.scheduler");
+        $scheduler->addTask(new TaskMock());
 
-    $application = new Application();
-    $application->add(new RunCommand($scheduler));
-    $command = $application->find("ts:run");
+        $application = new Application();
+        $application->add(new RunCommand($scheduler));
+        $command = $application->find("ts:run");
 
-    $commandTester = new CommandTester($command);
-    $commandTester->execute([
-      "command" => $command->getName(),
-    ]);
+        $commandTester = new CommandTester($command);
+        $commandTester->execute([
+            "command" => $command->getName(),
+        ]);
 
-    $this->assertEquals(1, TaskMock::$runCount);
-  }
+        $this->assertEquals(1, TaskMock::$runCount);
+    }
 
-  public function testRunCommandWithId() {
-    $container = $this->loadContainer();
-    /** @var Scheduler $scheduler */
-    $scheduler = $container->get("ts.scheduler");
+    public function testRunCommandWithId(): void
+    {
+        $container = $this->loadContainer();
 
-    $t1 = new TaskMock();
-    $t2 = new TaskMock();
+        /** @var Scheduler $scheduler */
+        $scheduler = $container->get("ts.scheduler");
 
-    $scheduler->addTask($t1);
-    $scheduler->addTask($t2);
+        $t1 = new TaskMock();
+        $t2 = new TaskMock();
 
-    $application = new Application();
-    $application->add(new RunCommand($scheduler));
-    $command = $application->find("ts:run");
+        $scheduler->addTask($t1);
+        $scheduler->addTask($t2);
 
-    $commandTester = new CommandTester($command);
-    $commandTester->execute([
-      "command" => $command->getName(),
-      "id" => 1,
-    ]);
+        $application = new Application();
+        $application->add(new RunCommand($scheduler));
+        $command = $application->find("ts:run");
 
-    $this->assertEquals(1, TaskMock::$runCount);
-    $this->assertEquals(1, $t1->localCount);
-    $this->assertEquals(0, $t2->localCount);
-  }
+        $commandTester = new CommandTester($command);
+        $commandTester->execute([
+            "command" => $command->getName(),
+            "id" => 1,
+        ]);
+
+        $this->assertEquals(1, TaskMock::$runCount);
+        $this->assertEquals(1, $t1->localCount);
+        $this->assertEquals(0, $t2->localCount);
+    }
 }
