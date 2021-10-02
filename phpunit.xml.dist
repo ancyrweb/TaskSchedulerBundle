@@ -8,17 +8,23 @@
          bootstrap="vendor/autoload.php"
 >
 
-  <testsuites>
-    <testsuite name="Project Test Suite">
-      <directory>Tests</directory>
-    </testsuite>
-  </testsuites>
-  <filter>
-    <whitelist processUncoveredFilesFromWhitelist="true">
-      <directory suffix=".php">./</directory>
-      <exclude>
-        <directory>./vendor</directory>
-      </exclude>
-    </whitelist>
-  </filter>
+    <testsuites>
+        <testsuite name="Project Test Suite">
+            <directory>Tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./</directory>
+            <exclude>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
+    </listeners>
+    <php>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0&amp;max[direct]=0"/>
+    </php>
 </phpunit>

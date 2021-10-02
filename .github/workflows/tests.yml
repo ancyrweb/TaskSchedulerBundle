@@ -22,8 +22,9 @@ jobs:
                 symfony-version:
                     - "3.4.x"
                     - "4.4.x"
-                    - "5.1.x"
                     - "5.2.x"
+                    - "5.3.x"
+                    - "5.4.x-dev"
 
         steps:
             - name: "Checkout"
@@ -51,6 +52,7 @@ jobs:
 
             - name: Install Composer dependencies
               run: |
+                  composer config minimum-stability dev
                   composer require --dev --no-update symfony/framework-bundle:${{ matrix.symfony-version }}
                   composer install --no-progress --prefer-dist --optimize-autoloader
 
