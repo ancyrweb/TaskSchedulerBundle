@@ -19,14 +19,28 @@ jobs:
                     - "7.3"
                     - "7.4"
                     - "8.0"
+                    - "8.1"
                 symfony-version:
                     - "3.4.x"
                     - "4.4.x"
                     - "5.3.x"
-                    - "5.4.x-dev"
+                    - "5.4.x"
                 monolog-version:
                     - "^1.25"
                     - "^2.2"
+                include:
+                    - php-version: "8.0"
+                      symfony-version: "6.0.x"
+                      monolog-version: "^1.25"
+                    - php-version: "8.1"
+                      symfony-version: "6.0.x"
+                      monolog-version: "^1.25"
+                    - php-version: "8.0"
+                      symfony-version: "6.0.x"
+                      monolog-version: "^2.2"
+                    - php-version: "8.1"
+                      symfony-version: "6.0.x"
+                      monolog-version: "^2.2"
 
         steps:
             - name: "Checkout"
