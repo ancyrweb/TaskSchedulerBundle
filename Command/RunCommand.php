@@ -48,7 +48,7 @@ class RunCommand extends Command
         } elseif ($class) {
             $tasks = $this->scheduler->getTasks();
             foreach ($tasks as $task) {
-                if (strpos($task::class, "\\$class")) {
+                if (strpos(get_class($task), "\\$class")) {
                     $this->scheduler->runTask($task);
                     return 0;
                 }
