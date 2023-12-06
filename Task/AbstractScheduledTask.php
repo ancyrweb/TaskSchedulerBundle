@@ -12,10 +12,7 @@ use DateTimeInterface;
 
 abstract class AbstractScheduledTask implements TaskInterface
 {
-    /**
-     * @var Schedule
-     */
-    private $schedule;
+    private Schedule $schedule;
 
     public function __construct()
     {
@@ -32,9 +29,6 @@ abstract class AbstractScheduledTask implements TaskInterface
         return $this->schedule->isDue($currentTime);
     }
 
-    /**
-     * @return Schedule
-     */
     public function getSchedule(): Schedule
     {
         return $this->schedule;

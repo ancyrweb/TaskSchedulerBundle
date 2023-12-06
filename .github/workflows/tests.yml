@@ -15,36 +15,27 @@ jobs:
         strategy:
             matrix:
                 php-version:
-                    - "7.2"
-                    - "7.3"
                     - "7.4"
-                    - "8.0"
                     - "8.1"
+                    - "8.2"
+                    - "8.3"
                 symfony-version:
-                    - "3.4.x"
-                    - "4.4.x"
-                    - "5.3.x"
                     - "5.4.x"
+                    - "6.4.x"
+                    - "7.0.x"
                 monolog-version:
-                    - "^1.25"
-                    - "^2.2"
-                include:
-                    - php-version: "8.0"
-                      symfony-version: "6.0.x"
-                      monolog-version: "^1.25"
-                    - php-version: "8.1"
-                      symfony-version: "6.0.x"
-                      monolog-version: "^1.25"
-                    - php-version: "8.0"
-                      symfony-version: "6.0.x"
-                      monolog-version: "^2.2"
-                    - php-version: "8.1"
-                      symfony-version: "6.0.x"
-                      monolog-version: "^2.2"
+                    - "^2.9"
+                exclude:
+                  - php-version: "7.4"
+                    symfony-version: "6.4.x"
+                  - php-version: "7.4"
+                    symfony-version: "7.0.x"
+                  - php-version: "8.1"
+                    symfony-version: "7.0.x"
 
         steps:
             - name: "Checkout"
-              uses: "actions/checkout@v2"
+              uses: "actions/checkout@v4"
               with:
                   fetch-depth: 2
 
@@ -58,7 +49,7 @@ jobs:
               run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
             - name: Cache composer dependencies
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                   path: ${{ steps.composer-cache.outputs.dir }}
                   # Use composer.json for key, if composer.lock is not committed.

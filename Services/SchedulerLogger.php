@@ -21,9 +21,9 @@ use Rewieer\TaskSchedulerBundle\Task\TaskInterface;
  */
 class SchedulerLogger implements EventSubscriberInterface
 {
-    private $logger;
-    private $start;
-    private $current;
+    private LoggerInterface $logger;
+    private ?float $start;
+    private ?float $current;
 
     public function __construct(LoggerInterface $logger)
     {

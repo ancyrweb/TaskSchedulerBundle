@@ -9,6 +9,11 @@ jobs:
     name: PHPCS
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: PHPCS check
-        uses: chekalsky/phpcs-action@v1
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: cs2pr, phpcs
+      - name: Run phpcs
+        run: phpcs -q --report=checkstyle . | cs2pr

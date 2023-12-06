@@ -17,10 +17,7 @@ class ListCommand extends Command
 {
     private const NUMBER_OF_RUN_DATES = 3;
 
-    /**
-     * @var Scheduler
-     */
-    private $scheduler;
+    private Scheduler $scheduler;
 
     public function __construct(Scheduler $scheduler)
     {
@@ -70,6 +67,6 @@ class ListCommand extends Command
 
         $table->render();
 
-        return 0;
+        return self::SUCCESS;
     }
 }
