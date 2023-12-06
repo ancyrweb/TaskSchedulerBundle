@@ -19,10 +19,7 @@ use DateTimeInterface;
  */
 class Schedule
 {
-    /**
-     * @var CronExpression
-     */
-    private $cron;
+    private CronExpression $cron;
 
     /**
      * Schedule constructor.
@@ -36,7 +33,6 @@ class Schedule
     /**
      * Sets the cron to work at these months
      * @param string|int $months
-     * @return $this
      */
     public function months($months): self
     {
@@ -48,7 +44,6 @@ class Schedule
      * Sets the cron to work at these days of the week
      * ATTENTION: resets daysOfMonth
      * @param string|int $days
-     * @return $this
      */
     public function daysOfWeek($days): self
     {
@@ -61,7 +56,6 @@ class Schedule
      * Sets the cron to work at these days of the month
      * ATTENTION: resets daysOfWeek
      * @param string|int $days
-     * @return $this
      */
     public function daysOfMonth($days): self
     {
@@ -72,7 +66,6 @@ class Schedule
 
     /**
      * Sets the cron to work every day
-     * @return $this
      */
     public function daily(): self
     {
@@ -83,7 +76,6 @@ class Schedule
     /**
      * Set the cron to work at these hours
      * @param string|int $hours
-     * @return $this
      */
     public function hours($hours): self
     {
@@ -94,7 +86,6 @@ class Schedule
     /**
      * Set the cron to work at these minutes
      * @param string|int $minutes
-     * @return $this
      */
     public function minutes($minutes): self
     {
@@ -105,7 +96,6 @@ class Schedule
     /**
      * Set the cron to work at every x minutes
      * @param int $minutes
-     * @return $this
      */
     public function everyMinutes(int $minutes = 1): self
     {
@@ -115,7 +105,6 @@ class Schedule
     /**
      * Set the cron to work at every x hours
      * @param int $hours
-     * @return $this
      */
     public function everyHours(int $hours = 1): self
     {
@@ -125,10 +114,6 @@ class Schedule
     /**
      * Generic function to update a cron part as an "everyX" pattern
      * such as "every 3 hours" or "every 10 minutes"
-     *
-     * @param int $time
-     * @param int $part
-     * @return $this
      */
     public function everyX(int $time = 1, int $part = CronExpression::MINUTE): self
     {
@@ -142,17 +127,11 @@ class Schedule
         return $this;
     }
 
-    /**
-     * @return CronExpression
-     */
     public function getCron(): CronExpression
     {
         return $this->cron;
     }
 
-    /**
-     * @return string
-     */
     public function getExpression(): string
     {
         return $this->cron->getExpression();
@@ -161,8 +140,6 @@ class Schedule
     /**
      * Allows setting entire expression in string format like "0 * 2,7,12 * 7"
      * Exposes CronExpressions method directly
-     * @param string $value
-     * @return $this
      */
     public function setExpression(string $value): self
     {
@@ -170,11 +147,6 @@ class Schedule
         return $this;
     }
 
-    /**
-     * @param int $position
-     * @param string $value
-     * @return $this
-     */
     public function setPart(int $position, string $value): self
     {
         $this->cron->setPart($position, $value);
@@ -184,7 +156,6 @@ class Schedule
     /**
      * Return true if the schedule is due to now
      * @param DateTimeInterface|string $currentTime
-     * @return bool
      */
     public function isDue($currentTime = 'now'): bool
     {

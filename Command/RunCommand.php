@@ -7,6 +7,7 @@
 
 namespace Rewieer\TaskSchedulerBundle\Command;
 
+use Exception;
 use Rewieer\TaskSchedulerBundle\Task\Scheduler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,10 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RunCommand extends Command
 {
-    /**
-     * @var Scheduler
-     */
-    private $scheduler;
+    private Scheduler $scheduler;
 
     public function __construct(Scheduler $scheduler)
     {
@@ -42,7 +40,6 @@ class RunCommand extends Command
         $id = $input->getArgument("id");
         $class = $input->getOption("class");
 
-
         if (!$id && !$class) {
             $this->scheduler->run();
         } elseif ($class) {
@@ -50,21 +47,21 @@ class RunCommand extends Command
             foreach ($tasks as $task) {
                 if (strpos(get_class($task), "\\$class")) {
                     $this->scheduler->runTask($task);
-                    return 0;
+                    return self::SUCCESS;
                 }
             }
-            throw new \Exception("There are no tasks corresponding to this class name");
+            throw new Exception("There are no tasks corresponding to this class name");
         } else {
             $tasks = $this->scheduler->getTasks();
             $id = (int)$id;
 
             if (array_key_exists($id - 1, $tasks) === false) {
-                throw new \Exception("There are no tasks corresponding to this ID");
+                throw new Exception("There are no tasks corresponding to this ID");
             }
 
             $this->scheduler->runTask($tasks[$id - 1]);
         }
 
-        return 0;
+        return self::SUCCESS;
     }
 }

@@ -13,10 +13,7 @@ use Rewieer\TaskSchedulerBundle\Event\EventDispatcher;
 
 class Scheduler
 {
-    /**
-     * @var EventDispatcher
-     */
-    private $dispatcher;
+    private EventDispatcher $dispatcher;
 
     public function __construct(EventDispatcher $dispatcher = null)
     {
@@ -32,19 +29,11 @@ class Scheduler
      */
     private $tasks = [];
 
-    /**
-     * Adds the task to the task stack
-     * @param TaskInterface $task
-     */
     public function addTask(TaskInterface $task): void
     {
         $this->tasks[] = $task;
     }
 
-    /**
-     * Run due tasks
-     * @param DateTimeInterface|string $currentTime
-     */
     public function run($currentTime = "now"): void
     {
         $this->dispatcher->dispatch(SchedulerEvents::ON_START);
@@ -60,10 +49,6 @@ class Scheduler
         $this->dispatcher->dispatch(SchedulerEvents::ON_END);
     }
 
-    /**
-     * Run the task
-     * @param TaskInterface $task
-     */
     public function runTask(TaskInterface $task): void
     {
         $this->dispatcher->dispatch(SchedulerEvents::BEFORE_TASK_RUNS, [$task]);

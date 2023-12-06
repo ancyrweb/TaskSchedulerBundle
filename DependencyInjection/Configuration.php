@@ -20,13 +20,6 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('rewieer_task_scheduler');
-
-        if (false === \method_exists($treeBuilder, 'getRootNode')) {
-            // BC layer for symfony/config 4.1 and older
-            $treeBuilder->root('rewieer_task_scheduler');
-        }
-
-        return $treeBuilder;
+        return new TreeBuilder('rewieer_task_scheduler');
     }
 }
