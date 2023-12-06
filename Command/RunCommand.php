@@ -30,7 +30,11 @@ class RunCommand extends Command
         $this
             ->setName("ts:run")
             ->setDescription("Run due tasks")
-            ->setHelp("This command actually run the tasks that are due at the moment the command is called.\nThis command should not be called manually. Check the documentation to learn how to set CRON jobs.")
+            ->setHelp(<<<'EOF'
+This command actually run the tasks that are due at the moment the command is called.
+This command should not be called manually. Check the documentation to learn how to set CRON jobs.
+EOF
+            )
             ->addArgument("id", InputArgument::OPTIONAL, "The ID of the task. Check ts:list for IDs")
             ->addOption("class", "c", InputOption::VALUE_OPTIONAL, "the class name of the task (without namespace)");
     }

@@ -16,4 +16,4 @@ jobs:
           php-version: '8.2'
           tools: cs2pr, phpcs
       - name: Run phpcs
-        run: phpcs -q --report=checkstyle .
+        run: phpcs -q --report=checkstyle . | cs2pr
