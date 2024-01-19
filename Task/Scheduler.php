@@ -34,9 +34,16 @@ class Scheduler
         $this->tasks[] = $task;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function run($currentTime = "now"): void
     {
         $this->dispatcher->dispatch(SchedulerEvents::ON_START);
+
+        if(\is_string($currentTime)) {
+            $currentTime = new \DateTime($currentTime);
+        }
 
         foreach ($this->tasks as $task) {
             if ($task->isDue($currentTime)) {

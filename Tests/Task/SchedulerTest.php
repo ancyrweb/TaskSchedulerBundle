@@ -79,4 +79,16 @@ class SchedulerTest extends TestCase
         $this->assertEquals([$task], EventSubscriberMock::$stack["onSkip"]);
         $this->assertEquals([], EventSubscriberMock::$stack["onEnd"]);
     }
+
+    public function testLongRunningTaskWithDate()
+    {
+        $scheduler = new Scheduler();
+        $scheduler->addTask(new Task());
+        $scheduler->addTask(new LongRunningScheduledTask());
+        $scheduler->addTask(new NowScheduledTask());
+        $scheduler->run();
+
+        $this->assertEquals(1, Task::$runCount);
+        $this->assertEquals(2, ScheduledTask::$runCount);
+    }
 }
