@@ -7,6 +7,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Task;
 
 use Cron\CronExpression;
@@ -25,7 +27,7 @@ class Schedule
      * Schedule constructor.
      * @param string $expr the default cron
      */
-    public function __construct(string $expr = "* * * * *")
+    public function __construct(string $expr = '* * * * *')
     {
         $this->cron = new CronExpression($expr, new FieldFactory());
     }
@@ -69,7 +71,7 @@ class Schedule
      */
     public function daily(): self
     {
-        $this->cron->setPart(CronExpression::DAY, "*");
+        $this->cron->setPart(CronExpression::DAY, '*');
         return $this;
     }
 
@@ -112,15 +114,15 @@ class Schedule
     }
 
     /**
-     * Generic function to update a cron part as an "everyX" pattern
-     * such as "every 3 hours" or "every 10 minutes"
+     * Generic function to update a cron part as an 'everyX' pattern
+     * such as 'every 3 hours' or 'every 10 minutes'
      */
     public function everyX(int $time = 1, int $part = CronExpression::MINUTE): self
     {
         if ($time === 0 || $time === 1) {
-            $expr = "*";
+            $expr = '*';
         } else {
-            $expr = "*/" . (string)$time;
+            $expr = '*/' . (string)$time;
         }
 
         $this->cron->setPart($part, $expr);
@@ -138,7 +140,7 @@ class Schedule
     }
 
     /**
-     * Allows setting entire expression in string format like "0 * 2,7,12 * 7"
+     * Allows setting entire expression in string format like '0 * 2,7,12 * 7'
      * Exposes CronExpressions method directly
      */
     public function setExpression(string $value): self

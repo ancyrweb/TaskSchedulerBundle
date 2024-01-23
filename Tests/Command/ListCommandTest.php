@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\Command;
 
 use Rewieer\TaskSchedulerBundle\Command\ListCommand;
@@ -27,46 +29,46 @@ class ListCommandTest extends ContainerAwareTest
         $container = $this->loadContainer();
 
         /** @var Scheduler $scheduler */
-        $scheduler = $container->get("ts.scheduler");
+        $scheduler = $container->get('ts.scheduler');
         $scheduler->addTask(new TaskMock());
 
         $application = new Application();
         $application->add(new ListCommand($scheduler));
 
-        $command = $application->find("ts:list");
+        $command = $application->find('ts:list');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute([
-            "command" => $command->getName(),
+            'command' => $command->getName(),
         ]);
 
         $output = $commandTester->getDisplay();
-        $this->assertStringNotContainsString("run dates", $output);
-        $this->assertStringContainsString("| 1  | Rewieer\TaskSchedulerBundle\Tests\TaskMock |", $output);
+        $this->assertStringNotContainsString('run dates', $output);
+        $this->assertStringContainsString('| 1  | Rewieer\TaskSchedulerBundle\Tests\TaskMock |', $output);
     }
 
     public function testListCommandWithOption(): void
     {
         $container = $this->loadContainer();
-        $scheduler = $container->get("ts.scheduler");
+        $scheduler = $container->get('ts.scheduler');
         $scheduler->addTask(new TaskMock());
 
         $application = new Application();
         /** @var Scheduler $scheduler */
         $application->add(new ListCommand($scheduler));
 
-        $command = $application->find("ts:list");
+        $command = $application->find('ts:list');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute([
-            "command" => $command->getName(),
-            "--show-run-dates" => 42,
+            'command' => $command->getName(),
+            '--show-run-dates' => 42,
         ]);
 
         $output = $commandTester->getDisplay();
-        $this->assertStringContainsString("42 run dates", $output);
+        $this->assertStringContainsString('42 run dates', $output);
         $this->assertStringContainsString(
-            "| 1  | Rewieer\TaskSchedulerBundle\Tests\TaskMock | nextRunDate, anotherRunDate",
+            '| 1  | Rewieer\TaskSchedulerBundle\Tests\TaskMock | nextRunDate, anotherRunDate',
             $output
         );
     }

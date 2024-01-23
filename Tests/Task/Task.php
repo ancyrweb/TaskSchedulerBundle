@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\Task;
 
 use Rewieer\TaskSchedulerBundle\Task\TaskInterface;

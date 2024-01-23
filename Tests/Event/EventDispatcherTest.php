@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\Event;
 
 use PHPUnit\Framework\TestCase;
@@ -19,7 +21,7 @@ class EventDispatcherTest extends TestCase
         $subscriber = new DummySubscriber();
         $dispatcher->addSubscriber($subscriber);
 
-        $dispatcher->dispatch("foo", [1, 2, 3]);
+        $dispatcher->dispatch('foo', [1, 2, 3]);
         $this->assertEquals([1, 2, 3], $subscriber->args);
     }
 }

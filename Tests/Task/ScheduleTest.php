@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\Task;
 
 use Cron\CronExpression;
@@ -22,7 +24,7 @@ class ScheduleTest extends TestCase
 
         $this->assertEquals(
             $schedule->getExpression(),
-            "* * * * *"
+            '* * * * *'
         );
     }
 
@@ -33,7 +35,7 @@ class ScheduleTest extends TestCase
 
         $this->assertEquals(
             $schedule->getExpression(),
-            "* 12 * * *"
+            '* 12 * * *'
         );
     }
 
@@ -44,7 +46,7 @@ class ScheduleTest extends TestCase
 
         $this->assertEquals(
             $schedule->getExpression(),
-            "12 * * * *"
+            '12 * * * *'
         );
     }
 
@@ -55,7 +57,7 @@ class ScheduleTest extends TestCase
 
         $this->assertEquals(
             $schedule->getExpression(),
-            "*/5 * * * *"
+            '*/5 * * * *'
         );
     }
 
@@ -66,72 +68,72 @@ class ScheduleTest extends TestCase
 
         $this->assertEquals(
             $schedule->getExpression(),
-            "* */5 * * *"
+            '* */5 * * *'
         );
     }
 
     public function testDaily(): void
     {
-        $schedule = new Schedule("1 2 3 4 5");
+        $schedule = new Schedule('1 2 3 4 5');
         $schedule->daily();
 
         $this->assertEquals(
             $schedule->getExpression(),
-            "1 2 * 4 5"
+            '1 2 * 4 5'
         );
     }
 
     public function testMonths(): void
     {
-        $schedule = new Schedule("1 2 3 4 5");
+        $schedule = new Schedule('1 2 3 4 5');
         $schedule->months('7-9');
 
         $this->assertEquals(
             $schedule->getExpression(),
-            "1 2 3 7-9 5"
+            '1 2 3 7-9 5'
         );
     }
 
     public function testDaysOfWeek(): void
     {
-        $schedule = new Schedule("1 2 3 4 5");
+        $schedule = new Schedule('1 2 3 4 5');
         $schedule->daysOfWeek('mon');
 
         $this->assertEquals(
             $schedule->getExpression(),
-            "1 2 * 4 mon"
+            '1 2 * 4 mon'
         );
     }
 
     public function testDaysOfMonth(): void
     {
-        $schedule = new Schedule("1 2 3 4 5");
+        $schedule = new Schedule('1 2 3 4 5');
         $schedule->daysOfMonth('7,8,9');
 
         $this->assertEquals(
             $schedule->getExpression(),
-            "1 2 7,8,9 4 *"
+            '1 2 7,8,9 4 *'
         );
     }
 
     public function testSetExpression(): void
     {
-        $schedule = new Schedule("* * * * *");
-        $schedule->setExpression("0 * * * *");
+        $schedule = new Schedule('* * * * *');
+        $schedule->setExpression('0 * * * *');
 
         $this->assertEquals(
             $schedule->getExpression(),
-            "0 * * * *"
+            '0 * * * *'
         );
     }
 
     public function testSetExpressionAllowedValues(): void
     {
-        $schedule = new Schedule("* * 2,7,12 * *");
-        $schedule->setExpression("0 8-12 2,7,12 oct sat,sun");
+        $schedule = new Schedule('* * 2,7,12 * *');
+        $schedule->setExpression('0 8-12 2,7,12 oct sat,sun');
 
         $this->assertEquals(
-            "0 8-12 2,7,12 oct sat,sun",
+            '0 8-12 2,7,12 oct sat,sun',
             $schedule->getExpression()
         );
     }
@@ -146,7 +148,7 @@ class ScheduleTest extends TestCase
         $schedule->setPart(CronExpression::WEEKDAY, 'sat,sun');
 
         $this->assertEquals(
-            "0 8-12 2,7,12 oct sat,sun",
+            '0 8-12 2,7,12 oct sat,sun',
             $schedule->getExpression()
         );
     }

@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Services;
 
 use DateTime;
@@ -33,40 +35,40 @@ class SchedulerLogger implements EventSubscriberInterface
     public function onStart(): void
     {
         $this->start = microtime(true);
-        $this->logger->info(sprintf("[%s] Starting...", (new Datetime())->format("d/m/y H:i:s")));
+        $this->logger->info(sprintf('[%s] Starting...', (new Datetime())->format('d/m/y H:i:s')));
     }
 
     public function beforeTaskRuns(TaskInterface $task): void
     {
         $this->current = microtime(true);
-        $this->logger->info(sprintf("Running %s", get_class($task)));
+        $this->logger->info(sprintf('Running %s', get_class($task)));
     }
 
     public function afterTaskRuns(TaskInterface $task): void
     {
         $time = microtime(true) - $this->current;
-        $this->logger->info(sprintf("Finished %s in %fs", get_class($task), $time));
+        $this->logger->info(sprintf('Finished %s in %fs', get_class($task), $time));
     }
 
     public function onEnd(): void
     {
         $time = microtime(true) - $this->start;
-        $this->logger->info(sprintf("Finished ! Took %fs", $time));
+        $this->logger->info(sprintf('Finished ! Took %fs', $time));
     }
 
     public function onSkip(TaskInterface $task): void
     {
-        $this->logger->info(sprintf("Skipped %s", get_class($task)));
+        $this->logger->info(sprintf('Skipped %s', get_class($task)));
     }
 
     public static function getEvents(): array
     {
         return [
-            SchedulerEvents::ON_START => "onStart",
-            SchedulerEvents::BEFORE_TASK_RUNS => "beforeTaskRuns",
-            SchedulerEvents::AFTER_TASK_RUNS => "afterTaskRuns",
-            SchedulerEvents::ON_SKIP => "onSkip",
-            SchedulerEvents::ON_END => "onEnd",
+            SchedulerEvents::ON_START => 'onStart',
+            SchedulerEvents::BEFORE_TASK_RUNS => 'beforeTaskRuns',
+            SchedulerEvents::AFTER_TASK_RUNS => 'afterTaskRuns',
+            SchedulerEvents::ON_SKIP => 'onSkip',
+            SchedulerEvents::ON_END => 'onEnd',
         ];
     }
 }

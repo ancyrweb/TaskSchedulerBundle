@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\DependencyInjection\Compiler;
 
 use Rewieer\TaskSchedulerBundle\DependencyInjection\Compiler\EventDispatcherPass;
@@ -20,18 +22,18 @@ class EventDispatcherPassTest extends ContainerAwareTest
         $container = $this->loadContainer();
 
         $def = new Definition(EventSubscriberMock::class);
-        $def->addTag("ts.event_subscriber");
+        $def->addTag('ts.event_subscriber');
         $def->setPublic(true);
-        $container->setDefinition("mock.event_subscriber", $def);
+        $container->setDefinition('mock.event_subscriber', $def);
 
         $pass = new EventDispatcherPass();
         $pass->process($container);
         $container->compile();
 
-        $dispatcher = $container->get("ts.event_dispatcher");
+        $dispatcher = $container->get('ts.event_dispatcher');
         $this->assertEquals([
-            $container->get("ts.scheduler_logger"),
-            $container->get("mock.event_subscriber")
+            $container->get('ts.scheduler_logger'),
+            $container->get('mock.event_subscriber')
         ], $dispatcher->getSubscribers());
     }
 }

@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -16,7 +18,7 @@ use Symfony\Component\DependencyInjection\Reference;
  * Class TaskPass
  * @package Rewieer\TaskSchedulerBundle\DependencyInjection\Compiler
  *
- * Adds services tagged with "ts.task" to the scheduler
+ * Adds services tagged with 'ts.task' to the scheduler
  */
 class EventDispatcherPass implements CompilerPassInterface
 {
@@ -26,7 +28,7 @@ class EventDispatcherPass implements CompilerPassInterface
         $tasks = $container->findTaggedServiceIds('ts.event_subscriber');
 
         foreach ($tasks as $id => $tags) {
-            $definition->addMethodCall("addSubscriber", [new Reference($id)]);
+            $definition->addMethodCall('addSubscriber', [new Reference($id)]);
         }
     }
 }
