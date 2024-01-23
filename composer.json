@@ -10,6 +10,7 @@
   "keywords": ["cron", "task", "scheduler", "symfony", "bundle"],
   "require": {
     "php": "^7.4|^8.1",
+    "symfony/deprecation-contracts": "^2.5|^3.4",
     "symfony/framework-bundle": "^5.4|^6.4|^7.0",
     "symfony/console": "^5.3|^6.4|^7.0",
     "dragonmantank/cron-expression": "^3.3"
