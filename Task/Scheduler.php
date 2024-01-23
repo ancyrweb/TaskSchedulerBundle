@@ -6,9 +6,10 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Task;
 
-use DateTimeInterface;
 use Rewieer\TaskSchedulerBundle\Event\EventDispatcher;
 
 class Scheduler
@@ -34,7 +35,7 @@ class Scheduler
         $this->tasks[] = $task;
     }
 
-    public function run($currentTime = "now"): void
+    public function run($currentTime = 'now'): void
     {
         $this->dispatcher->dispatch(SchedulerEvents::ON_START);
 

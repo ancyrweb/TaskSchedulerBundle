@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\Event;
 
 use Rewieer\TaskSchedulerBundle\Event\EventSubscriberInterface;
@@ -16,7 +18,7 @@ class DummySubscriber implements EventSubscriberInterface
     public static function getEvents(): array
     {
         return [
-            "foo" => "callFoo",
+            'foo' => 'callFoo',
         ];
     }
 }

@@ -4,6 +4,8 @@
  * All rights reserved.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Command;
 
 use Rewieer\TaskSchedulerBundle\Task\Scheduler;
@@ -28,14 +30,14 @@ class ListCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName("ts:list")
-            ->setDescription("List the existing tasks")
-            ->setHelp("This command display the list of registered tasks.")
+            ->setName('ts:list')
+            ->setDescription('List the existing tasks')
+            ->setHelp('This command display the list of registered tasks.')
             ->addOption(
-                "show-run-dates",
+                'show-run-dates',
                 null,
                 InputOption::VALUE_OPTIONAL,
-                "Show next run dates (default value: " . self::NUMBER_OF_RUN_DATES . ")",
+                'Show next run dates (default value: ' . self::NUMBER_OF_RUN_DATES . ')',
                 false
             );
     }
@@ -46,10 +48,10 @@ class ListCommand extends Command
         $showRunDates = $numberOfRunDates !== false;
 
         $table = new Table($output);
-        $tableHeaders = ["ID", "Class"];
+        $tableHeaders = ['ID', 'Class'];
 
         if ($showRunDates) {
-            $tableHeaders[] = "Next " . $numberOfRunDates . " run dates";
+            $tableHeaders[] = 'Next ' . $numberOfRunDates . ' run dates';
         }
 
         $table->setHeaders($tableHeaders);

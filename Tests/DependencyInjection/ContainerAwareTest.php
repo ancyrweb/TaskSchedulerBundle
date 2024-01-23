@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\DependencyInjection;
 
 use Monolog\Logger;
@@ -18,7 +20,7 @@ abstract class ContainerAwareTest extends TestCase
     public function loadContainer($config = []): ContainerBuilder
     {
         $container = new ContainerBuilder();
-        $container->set("logger", new Logger(""));
+        $container->set('logger', new Logger(''));
         $extension = new RewieerTaskSchedulerExtension();
         $extension->load($config, $container);
 

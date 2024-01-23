@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\Services;
 
 use Monolog\Handler\TestHandler;

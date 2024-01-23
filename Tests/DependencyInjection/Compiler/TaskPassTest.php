@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\DependencyInjection\Compiler;
 
 use Rewieer\TaskSchedulerBundle\DependencyInjection\Compiler\TaskPass;
@@ -24,14 +26,14 @@ class TaskPassTest extends ContainerAwareTest
         $container = $this->loadContainer();
 
         $def = new Definition(Task::class);
-        $def->addTag("ts.task");
-        $container->setDefinition("mock.task", $def);
+        $def->addTag('ts.task');
+        $container->setDefinition('mock.task', $def);
 
         $pass = new TaskPass();
         $pass->process($container);
         $container->compile();
 
-        $scheduler = $container->get("ts.scheduler");
+        $scheduler = $container->get('ts.scheduler');
         $scheduler->run();
 
         $this->assertEquals(1, Task::$runCount);

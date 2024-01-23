@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\Command;
 
 use Rewieer\TaskSchedulerBundle\Command\RunCommand;
@@ -26,16 +28,16 @@ class RunCommandTest extends ContainerAwareTest
     {
         $container = $this->loadContainer();
         /** @var Scheduler $scheduler */
-        $scheduler = $container->get("ts.scheduler");
+        $scheduler = $container->get('ts.scheduler');
         $scheduler->addTask(new TaskMock());
 
         $application = new Application();
         $application->add(new RunCommand($scheduler));
-        $command = $application->find("ts:run");
+        $command = $application->find('ts:run');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute([
-            "command" => $command->getName(),
+            'command' => $command->getName(),
         ]);
 
         $this->assertEquals(1, TaskMock::$runCount);
@@ -46,7 +48,7 @@ class RunCommandTest extends ContainerAwareTest
         $container = $this->loadContainer();
 
         /** @var Scheduler $scheduler */
-        $scheduler = $container->get("ts.scheduler");
+        $scheduler = $container->get('ts.scheduler');
 
         $t1 = new TaskMock();
         $t2 = new TaskMock();
@@ -56,12 +58,12 @@ class RunCommandTest extends ContainerAwareTest
 
         $application = new Application();
         $application->add(new RunCommand($scheduler));
-        $command = $application->find("ts:run");
+        $command = $application->find('ts:run');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute([
-            "command" => $command->getName(),
-            "id" => 1,
+            'command' => $command->getName(),
+            'id' => 1,
         ]);
 
         $this->assertEquals(1, TaskMock::$runCount);
@@ -74,7 +76,7 @@ class RunCommandTest extends ContainerAwareTest
         $container = $this->loadContainer();
 
         /** @var Scheduler $scheduler */
-        $scheduler = $container->get("ts.scheduler");
+        $scheduler = $container->get('ts.scheduler');
 
         $t1 = new TaskMock();
         $t2 = new TaskMock();
@@ -84,12 +86,12 @@ class RunCommandTest extends ContainerAwareTest
 
         $application = new Application();
         $application->add(new RunCommand($scheduler));
-        $command = $application->find("ts:run");
+        $command = $application->find('ts:run');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute([
-            "command" => $command->getName(),
-            "--class" => "TaskMock",
+            'command' => $command->getName(),
+            '--class' => 'TaskMock',
         ]);
 
 

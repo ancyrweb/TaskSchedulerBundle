@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Rewieer\TaskSchedulerBundle\Tests\Task;
 
 use PHPUnit\Framework\TestCase;
@@ -38,7 +40,7 @@ class SchedulerTest extends TestCase
         $scheduler = new Scheduler();
         $scheduler->addTask(new Task());
         $scheduler->addTask(new ScheduledTask());
-        $scheduler->run("2015-06-21 03:50:00");
+        $scheduler->run('2015-06-21 03:50:00');
 
         $this->assertEquals(1, Task::$runCount);
         $this->assertEquals(1, ScheduledTask::$runCount);
@@ -54,11 +56,11 @@ class SchedulerTest extends TestCase
         $scheduler->addTask($task);
         $scheduler->run();
 
-        $this->assertEquals([], EventSubscriberMock::$stack["onStart"]);
-        $this->assertEquals([$task], EventSubscriberMock::$stack["beforeTaskRuns"]);
-        $this->assertEquals([$task], EventSubscriberMock::$stack["afterTaskRuns"]);
-        $this->assertArrayNotHasKey("onSkip", EventSubscriberMock::$stack);
-        $this->assertEquals([], EventSubscriberMock::$stack["onEnd"]);
+        $this->assertEquals([], EventSubscriberMock::$stack['onStart']);
+        $this->assertEquals([$task], EventSubscriberMock::$stack['beforeTaskRuns']);
+        $this->assertEquals([$task], EventSubscriberMock::$stack['afterTaskRuns']);
+        $this->assertArrayNotHasKey('onSkip', EventSubscriberMock::$stack);
+        $this->assertEquals([], EventSubscriberMock::$stack['onEnd']);
     }
 
     public function testCallingDispatcherOnSkip(): void
@@ -73,10 +75,10 @@ class SchedulerTest extends TestCase
         $scheduler->addTask($task);
         $scheduler->run();
 
-        $this->assertEquals([], EventSubscriberMock::$stack["onStart"]);
-        $this->assertArrayNotHasKey("beforeTaskRuns", EventSubscriberMock::$stack);
-        $this->assertArrayNotHasKey("afterTaskRuns", EventSubscriberMock::$stack);
-        $this->assertEquals([$task], EventSubscriberMock::$stack["onSkip"]);
-        $this->assertEquals([], EventSubscriberMock::$stack["onEnd"]);
+        $this->assertEquals([], EventSubscriberMock::$stack['onStart']);
+        $this->assertArrayNotHasKey('beforeTaskRuns', EventSubscriberMock::$stack);
+        $this->assertArrayNotHasKey('afterTaskRuns', EventSubscriberMock::$stack);
+        $this->assertEquals([$task], EventSubscriberMock::$stack['onSkip']);
+        $this->assertEquals([], EventSubscriberMock::$stack['onEnd']);
     }
 }
