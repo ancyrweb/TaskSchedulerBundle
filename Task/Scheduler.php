@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Rewieer\TaskSchedulerBundle\Task;
 
+use DateTime;
 use Rewieer\TaskSchedulerBundle\Event\EventDispatcher;
 
 class Scheduler
@@ -38,6 +39,10 @@ class Scheduler
     public function run($currentTime = 'now'): void
     {
         $this->dispatcher->dispatch(SchedulerEvents::ON_START);
+
+        if (is_string($currentTime)) {
+            $currentTime = new DateTime($currentTime);
+        }
 
         foreach ($this->tasks as $task) {
             if ($task->isDue($currentTime)) {

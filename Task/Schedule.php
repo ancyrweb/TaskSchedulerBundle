@@ -161,6 +161,14 @@ class Schedule
      */
     public function isDue($currentTime = 'now'): bool
     {
+        if (is_string($currentTime)) {
+            trigger_deprecation(
+                'rewieer/taskschedulerbundle',
+                '0.12',
+                'Calling isDue() with a string is deprecated, use a DateTimeInteface instance instead'
+            );
+        }
+
         return $this->cron->isDue($currentTime);
     }
 }
