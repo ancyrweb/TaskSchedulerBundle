@@ -25,6 +25,6 @@
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
     </listeners>
     <php>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="baselineFile=./Tests/allowedDeprecationNotices.json&amp;max[self]=0&amp;max[direct]=0"/>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0&amp;max[direct]=0"/>
     </php>
 </phpunit>
