@@ -22,7 +22,8 @@ jobs:
                 symfony-version:
                     - "5.4.x"
                     - "6.4.x"
-                    - "7.0.x"
+                    - "7.4.x"
+                    - "8.0.x"
                 monolog-version:
                     - "^2.9"
                 exclude:
