@@ -19,6 +19,7 @@ jobs:
                     - "8.1"
                     - "8.2"
                     - "8.3"
+                    - "8.4"
                 symfony-version:
                     - "5.4.x"
                     - "6.4.x"
@@ -30,9 +31,15 @@ jobs:
                   - php-version: "7.4"
                     symfony-version: "6.4.x"
                   - php-version: "7.4"
-                    symfony-version: "7.0.x"
+                    symfony-version: "7.4.x"
+                  - php-version: "7.4"
+                    symfony-version: "8.0.x"
                   - php-version: "8.1"
-                    symfony-version: "7.0.x"
+                    symfony-version: "7.4.x"
+                  - php-version: "8.2"
+                    symfony-version: "8.0.x"
+                  - php-version: "8.3"
+                    symfony-version: "8.0.x"
 
         steps:
             - name: "Checkout"
