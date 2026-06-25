@@ -1,0 +1,35 @@
+services:
+  ts.event_dispatcher:
+    class: Rewieer\TaskSchedulerBundle\Event\EventDispatcher
+    public: true
+
+  ts.scheduler:
+    class: Rewieer\TaskSchedulerBundle\Task\Scheduler
+    public: true
+    arguments:
+      - '@ts.event_dispatcher'
+
+  ts.scheduler_logger:
+    class: Rewieer\TaskSchedulerBundle\Services\SchedulerLogger
+    public: true
+    arguments:
+      - '@logger'
+    tags:
+      - { name: 'ts.event_subscriber' }
+      - { name: 'monolog.logger', channel: 'scheduler' }
+
+  ts.list_command:
+    class: Rewieer\TaskSchedulerBundle\Command\ListCommand
+    public: true
+    arguments:
+      - '@ts.scheduler'
+    tags:
+      - { name: 'console.command' }
+
+  ts.run_command:
+    class: Rewieer\TaskSchedulerBundle\Command\RunCommand
+    public: true
+    arguments:
+      - '@ts.scheduler'
+    tags:
+      - { name: 'console.command' }

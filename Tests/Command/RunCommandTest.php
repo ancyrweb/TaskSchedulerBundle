@@ -32,7 +32,7 @@ class RunCommandTest extends ContainerAwareTest
         $scheduler->addTask(new TaskMock());
 
         $application = new Application();
-        $application->add(new RunCommand($scheduler));
+        $application->addCommands([new RunCommand($scheduler)]);
         $command = $application->find('ts:run');
 
         $commandTester = new CommandTester($command);
@@ -57,7 +57,7 @@ class RunCommandTest extends ContainerAwareTest
         $scheduler->addTask($t2);
 
         $application = new Application();
-        $application->add(new RunCommand($scheduler));
+        $application->addCommands([new RunCommand($scheduler)]);
         $command = $application->find('ts:run');
 
         $commandTester = new CommandTester($command);
@@ -85,7 +85,7 @@ class RunCommandTest extends ContainerAwareTest
         $scheduler->addTask($t2);
 
         $application = new Application();
-        $application->add(new RunCommand($scheduler));
+        $application->addCommands([new RunCommand($scheduler)]);
         $command = $application->find('ts:run');
 
         $commandTester = new CommandTester($command);

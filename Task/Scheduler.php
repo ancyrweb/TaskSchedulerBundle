@@ -17,7 +17,7 @@ class Scheduler
 {
     private EventDispatcher $dispatcher;
 
-    public function __construct(EventDispatcher $dispatcher = null)
+    public function __construct(?EventDispatcher $dispatcher = null)
     {
         if ($dispatcher === null) {
             $dispatcher = new EventDispatcher();

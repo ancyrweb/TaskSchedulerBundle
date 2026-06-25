@@ -33,7 +33,7 @@ class ListCommandTest extends ContainerAwareTest
         $scheduler->addTask(new TaskMock());
 
         $application = new Application();
-        $application->add(new ListCommand($scheduler));
+        $application->addCommands([new ListCommand($scheduler)]);
 
         $command = $application->find('ts:list');
 
@@ -55,7 +55,7 @@ class ListCommandTest extends ContainerAwareTest
 
         $application = new Application();
         /** @var Scheduler $scheduler */
-        $application->add(new ListCommand($scheduler));
+        $application->addCommands([new ListCommand($scheduler)]);
 
         $command = $application->find('ts:list');
 
