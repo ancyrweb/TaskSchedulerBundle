@@ -60,7 +60,7 @@ class ListCommand extends Command
             $row = [($id + 1), get_class($task)];
 
             if ($showRunDates) {
-                $nextRunDates = $task->getNextRunDates($numberOfRunDates);
+                $nextRunDates = $task->getNextRunDates(intval($numberOfRunDates));
                 $row[] = implode(', ', $nextRunDates);
             }
 
