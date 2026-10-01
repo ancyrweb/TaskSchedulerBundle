@@ -24,7 +24,7 @@ services:
     arguments:
       - '@ts.scheduler'
     tags:
-      - { name: 'console.command' }
+      - { name: 'console.command', command: 'ts:list' }
 
   ts.run_command:
     class: Rewieer\TaskSchedulerBundle\Command\RunCommand
@@ -32,4 +32,4 @@ services:
     arguments:
       - '@ts.scheduler'
     tags:
-      - { name: 'console.command' }
+      - { name: 'console.command', command: 'ts:run' }
